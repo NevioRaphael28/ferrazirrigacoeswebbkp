@@ -1,0 +1,74 @@
+﻿@model FerrazIrrigacoes.Models.Produto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estoque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estoque)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriasTipo1.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriasTipo1.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca1.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca1.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadeMedidaTipos1.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadeMedidaTipos1.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

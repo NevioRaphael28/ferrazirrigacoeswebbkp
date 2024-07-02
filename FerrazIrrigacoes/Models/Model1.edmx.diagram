@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d52fb12fae84b9bb07db613898318d1" Name="Diagram1">
+        <EntityTypeShape EntityType="sakitadbModel.Caixa" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.CategoriasTipo" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Cidade" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Cliente" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Empresa" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.FormaDePagamento" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.ItensOrcamento" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.ItensVenda" Width="1.5" PointX="13.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Lancamento" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Marca" Width="1.5" PointX="6" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Orcamento" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Produto" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.UnidadeMedidaTipos" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Usuario" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="sakitadbModel.Venda" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="sakitadbModel.FK__Caixa__Usuario__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Venda__Caixa__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Produto__Categor__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Cliente__Cidade__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Empresa__Cidade__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Orcamento__Clien__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Venda__FormaDePa__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__ItensOrca__Orcam__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__ItensOrca__Produ__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__ItensVend__Produ__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__ItensVend__Venda__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Lancament__Venda__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Produto__Marca__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Orcamento__Venda__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="sakitadbModel.FK__Produto__Unidade__4AB81AF0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

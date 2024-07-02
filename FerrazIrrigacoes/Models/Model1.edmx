@@ -1,0 +1,1122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sakitadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TotalFinal" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="TotalInicial" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="DataAbertura" Type="datetime" />
+          <Property Name="DataFechamento" Type="datetime" />
+          <Property Name="Usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="CategoriasTipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CidadeNome" Type="varchar" MaxLength="150" />
+          <Property Name="CidadeCodIbge" Type="varchar" MaxLength="8" />
+          <Property Name="CidadeUF" Type="varchar" MaxLength="2" />
+          <Property Name="CidadeCodPais" Type="int" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+          <Property Name="CPF" Type="varchar" MaxLength="15" />
+          <Property Name="Telefone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Rua" Type="varchar" MaxLength="120" />
+          <Property Name="Bairro" Type="varchar" MaxLength="50" />
+          <Property Name="CEP" Type="varchar" MaxLength="10" />
+          <Property Name="Numero" Type="varchar" MaxLength="10" />
+          <Property Name="Complemento" Type="varchar" MaxLength="150" />
+          <Property Name="Cidade" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeFantasia" Type="varchar" MaxLength="100" />
+          <Property Name="RazaoSocial" Type="varchar" MaxLength="150" />
+          <Property Name="CNPJ" Type="varchar" MaxLength="40" />
+          <Property Name="Telefone" Type="varchar" MaxLength="15" />
+          <Property Name="Rua" Type="varchar" MaxLength="150" />
+          <Property Name="Bairro" Type="varchar" MaxLength="50" />
+          <Property Name="CEP" Type="varchar" MaxLength="10" />
+          <Property Name="Numero" Type="varchar" MaxLength="10" />
+          <Property Name="Complemento" Type="varchar" MaxLength="150" />
+          <Property Name="Cidade" Type="int" />
+        </EntityType>
+        <EntityType Name="FormaDePagamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ItensOrcamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValorProduto" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Orcamento" Type="int" />
+          <Property Name="Produto" Type="int" />
+          <Property Name="quantidade" Type="int" />
+        </EntityType>
+        <EntityType Name="ItensVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValorProduto" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Quantidade" Type="int" />
+          <Property Name="Produto" Type="int" />
+          <Property Name="Venda" Type="int" />
+          <Property Name="ValorTotalProdutos" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="Lancamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Movimento" Type="varchar" MaxLength="1" />
+          <Property Name="Valor" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Descricao" Type="varchar" MaxLength="150" />
+          <Property Name="Venda" Type="int" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="CaixaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Orcamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="dataorcamento" Type="datetime" />
+          <Property Name="Cliente" Type="int" />
+          <Property Name="Venda" Type="int" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+          <Property Name="Descricao" Type="varchar" MaxLength="150" />
+          <Property Name="Estoque" Type="int" />
+          <Property Name="Valor" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Marca" Type="int" />
+          <Property Name="CategoriasTipo" Type="int" />
+          <Property Name="UnidadeMedidaTipos" Type="int" />
+        </EntityType>
+        <EntityType Name="UnidadeMedidaTipos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Senha" Type="varchar" MaxLength="45" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+          <Property Name="Cargo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Venda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataVenda" Type="datetime" />
+          <Property Name="Valor" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Caixa" Type="int" />
+          <Property Name="FormaDePagamento" Type="int" />
+          <Property Name="MaodeObra" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Desconto" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="ClienteId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Caixa__Usuario__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Caixa" Type="Self.Caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caixa">
+              <PropertyRef Name="Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__Cidade__403A8C7D">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="Cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empresa__Cidade__412EB0B6">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="Cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensOrca__Orcam__4222D4EF">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="0..1" />
+          <End Role="ItensOrcamento" Type="Self.ItensOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensOrcamento">
+              <PropertyRef Name="Orcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensOrca__Produ__4316F928">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="0..1" />
+          <End Role="ItensOrcamento" Type="Self.ItensOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensOrcamento">
+              <PropertyRef Name="Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensVend__Produ__440B1D61">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="0..1" />
+          <End Role="ItensVenda" Type="Self.ItensVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensVenda">
+              <PropertyRef Name="Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensVend__Venda__44FF419A">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="ItensVenda" Type="Self.ItensVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensVenda">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lancament__Venda__45F365D3">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="Lancamento" Type="Self.Lancamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lancamento">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orcamento__Clien__46E78A0C">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orcamento__Venda__47DBAE45">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Categor__48CFD27E">
+          <End Role="CategoriasTipo" Type="Self.CategoriasTipo" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasTipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="CategoriasTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Marca__49C3F6B7">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="Marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Unidade__4AB81AF0">
+          <End Role="UnidadeMedidaTipos" Type="Self.UnidadeMedidaTipos" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadeMedidaTipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="UnidadeMedidaTipos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venda__Caixa__4BAC3F29">
+          <End Role="Caixa" Type="Self.Caixa" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="Caixa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venda__FormaDePa__4CA06362">
+          <End Role="FormaDePagamento" Type="Self.FormaDePagamento" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaDePagamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="FormaDePagamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CalculaCaixa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CaixaId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="sakitadbModelStoreContainer">
+          <EntitySet Name="Caixa" EntityType="Self.Caixa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriasTipo" EntityType="Self.CategoriasTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormaDePagamento" EntityType="Self.FormaDePagamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItensOrcamento" EntityType="Self.ItensOrcamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItensVenda" EntityType="Self.ItensVenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lancamento" EntityType="Self.Lancamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orcamento" EntityType="Self.Orcamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadeMedidaTipos" EntityType="Self.UnidadeMedidaTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venda" EntityType="Self.Venda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Caixa__Usuario__3F466844" Association="Self.FK__Caixa__Usuario__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caixa" EntitySet="Caixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__Cidade__403A8C7D" Association="Self.FK__Cliente__Cidade__403A8C7D">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empresa__Cidade__412EB0B6" Association="Self.FK__Empresa__Cidade__412EB0B6">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensOrca__Orcam__4222D4EF" Association="Self.FK__ItensOrca__Orcam__4222D4EF">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="ItensOrcamento" EntitySet="ItensOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensOrca__Produ__4316F928" Association="Self.FK__ItensOrca__Produ__4316F928">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItensOrcamento" EntitySet="ItensOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensVend__Produ__440B1D61" Association="Self.FK__ItensVend__Produ__440B1D61">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItensVenda" EntitySet="ItensVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensVend__Venda__44FF419A" Association="Self.FK__ItensVend__Venda__44FF419A">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="ItensVenda" EntitySet="ItensVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lancament__Venda__45F365D3" Association="Self.FK__Lancament__Venda__45F365D3">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="Lancamento" EntitySet="Lancamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orcamento__Clien__46E78A0C" Association="Self.FK__Orcamento__Clien__46E78A0C">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orcamento__Venda__47DBAE45" Association="Self.FK__Orcamento__Venda__47DBAE45">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Categor__48CFD27E" Association="Self.FK__Produto__Categor__48CFD27E">
+            <End Role="CategoriasTipo" EntitySet="CategoriasTipo" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Marca__49C3F6B7" Association="Self.FK__Produto__Marca__49C3F6B7">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Unidade__4AB81AF0" Association="Self.FK__Produto__Unidade__4AB81AF0">
+            <End Role="UnidadeMedidaTipos" EntitySet="UnidadeMedidaTipos" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venda__Caixa__4BAC3F29" Association="Self.FK__Venda__Caixa__4BAC3F29">
+            <End Role="Caixa" EntitySet="Caixa" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venda__FormaDePa__4CA06362" Association="Self.FK__Venda__FormaDePa__4CA06362">
+            <End Role="FormaDePagamento" EntitySet="FormaDePagamento" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente" Association="Self.FK_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sakitadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TotalFinal" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TotalInicial" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="DataAbertura" Type="DateTime" Precision="3" />
+          <Property Name="DataFechamento" Type="DateTime" Precision="3" />
+          <Property Name="Usuario" Type="Int32" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__Caixa__Usuario__3F466844" FromRole="Caixa" ToRole="Usuario" />
+          <NavigationProperty Name="Venda" Relationship="Self.FK__Venda__Caixa__4BAC3F29" FromRole="Caixa" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="CategoriasTipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK__Produto__Categor__48CFD27E" FromRole="CategoriasTipo" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CidadeNome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CidadeCodIbge" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CidadeUF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CidadeCodPais" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__Cidade__403A8C7D" FromRole="Cidade" ToRole="Cliente" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK__Empresa__Cidade__412EB0B6" FromRole="Cidade" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Rua" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="Int32" />
+          <NavigationProperty Name="Cidade1" Relationship="Self.FK__Cliente__Cidade__403A8C7D" FromRole="Cliente" ToRole="Cidade" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK__Orcamento__Clien__46E78A0C" FromRole="Cliente" ToRole="Orcamento" />
+          <NavigationProperty Name="Venda" Relationship="Self.FK_Cliente" FromRole="Cliente" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RazaoSocial" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Rua" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="Int32" />
+          <NavigationProperty Name="Cidade1" Relationship="Self.FK__Empresa__Cidade__412EB0B6" FromRole="Empresa" ToRole="Cidade" />
+        </EntityType>
+        <EntityType Name="FormaDePagamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Venda" Relationship="Self.FK__Venda__FormaDePa__4CA06362" FromRole="FormaDePagamento" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="ItensOrcamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValorProduto" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Orcamento" Type="Int32" />
+          <Property Name="Produto" Type="Int32" />
+          <Property Name="quantidade" Type="Int32" />
+          <NavigationProperty Name="Orcamento1" Relationship="Self.FK__ItensOrca__Orcam__4222D4EF" FromRole="ItensOrcamento" ToRole="Orcamento" />
+          <NavigationProperty Name="Produto1" Relationship="Self.FK__ItensOrca__Produ__4316F928" FromRole="ItensOrcamento" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="ItensVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValorProduto" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Quantidade" Type="Int32" />
+          <Property Name="Produto" Type="Int32" />
+          <Property Name="Venda" Type="Int32" />
+          <Property Name="ValorTotalProdutos" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Produto1" Relationship="Self.FK__ItensVend__Produ__440B1D61" FromRole="ItensVenda" ToRole="Produto" />
+          <NavigationProperty Name="Venda1" Relationship="Self.FK__ItensVend__Venda__44FF419A" FromRole="ItensVenda" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="Lancamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Movimento" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Valor" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Descricao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Venda" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="CaixaId" Type="Int32" />
+          <NavigationProperty Name="Venda1" Relationship="Self.FK__Lancament__Venda__45F365D3" FromRole="Lancamento" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK__Produto__Marca__49C3F6B7" FromRole="Marca" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Orcamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Valor" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="dataorcamento" Type="DateTime" Precision="3" />
+          <Property Name="Cliente" Type="Int32" />
+          <Property Name="Venda" Type="Int32" />
+          <NavigationProperty Name="Cliente1" Relationship="Self.FK__Orcamento__Clien__46E78A0C" FromRole="Orcamento" ToRole="Cliente" />
+          <NavigationProperty Name="ItensOrcamento" Relationship="Self.FK__ItensOrca__Orcam__4222D4EF" FromRole="Orcamento" ToRole="ItensOrcamento" />
+          <NavigationProperty Name="Venda1" Relationship="Self.FK__Orcamento__Venda__47DBAE45" FromRole="Orcamento" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Estoque" Type="Int32" />
+          <Property Name="Valor" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Marca" Type="Int32" />
+          <Property Name="CategoriasTipo" Type="Int32" />
+          <Property Name="UnidadeMedidaTipos" Type="Int32" />
+          <NavigationProperty Name="CategoriasTipo1" Relationship="Self.FK__Produto__Categor__48CFD27E" FromRole="Produto" ToRole="CategoriasTipo" />
+          <NavigationProperty Name="ItensOrcamento" Relationship="Self.FK__ItensOrca__Produ__4316F928" FromRole="Produto" ToRole="ItensOrcamento" />
+          <NavigationProperty Name="ItensVenda" Relationship="Self.FK__ItensVend__Produ__440B1D61" FromRole="Produto" ToRole="ItensVenda" />
+          <NavigationProperty Name="Marca1" Relationship="Self.FK__Produto__Marca__49C3F6B7" FromRole="Produto" ToRole="Marca" />
+          <NavigationProperty Name="UnidadeMedidaTipos1" Relationship="Self.FK__Produto__Unidade__4AB81AF0" FromRole="Produto" ToRole="UnidadeMedidaTipos" />
+        </EntityType>
+        <EntityType Name="UnidadeMedidaTipos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK__Produto__Unidade__4AB81AF0" FromRole="UnidadeMedidaTipos" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Caixa" Relationship="Self.FK__Caixa__Usuario__3F466844" FromRole="Usuario" ToRole="Caixa" />
+        </EntityType>
+        <EntityType Name="Venda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataVenda" Type="DateTime" Precision="3" />
+          <Property Name="Valor" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Caixa" Type="Int32" />
+          <Property Name="FormaDePagamento" Type="Int32" />
+          <Property Name="MaodeObra" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Desconto" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="ClienteId" Type="Int32" />
+          <NavigationProperty Name="Caixa1" Relationship="Self.FK__Venda__Caixa__4BAC3F29" FromRole="Venda" ToRole="Caixa" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente" FromRole="Venda" ToRole="Cliente" />
+          <NavigationProperty Name="FormaDePagamento1" Relationship="Self.FK__Venda__FormaDePa__4CA06362" FromRole="Venda" ToRole="FormaDePagamento" />
+          <NavigationProperty Name="ItensVenda" Relationship="Self.FK__ItensVend__Venda__44FF419A" FromRole="Venda" ToRole="ItensVenda" />
+          <NavigationProperty Name="Lancamento" Relationship="Self.FK__Lancament__Venda__45F365D3" FromRole="Venda" ToRole="Lancamento" />
+          <NavigationProperty Name="Orcamento" Relationship="Self.FK__Orcamento__Venda__47DBAE45" FromRole="Venda" ToRole="Orcamento" />
+        </EntityType>
+        <Association Name="FK__Caixa__Usuario__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Caixa" Type="Self.Caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caixa">
+              <PropertyRef Name="Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venda__Caixa__4BAC3F29">
+          <End Role="Caixa" Type="Self.Caixa" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="Caixa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Categor__48CFD27E">
+          <End Role="CategoriasTipo" Type="Self.CategoriasTipo" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasTipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="CategoriasTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__Cidade__403A8C7D">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="Cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empresa__Cidade__412EB0B6">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="Cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orcamento__Clien__46E78A0C">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venda__FormaDePa__4CA06362">
+          <End Role="FormaDePagamento" Type="Self.FormaDePagamento" Multiplicity="0..1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaDePagamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="FormaDePagamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensOrca__Orcam__4222D4EF">
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="0..1" />
+          <End Role="ItensOrcamento" Type="Self.ItensOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orcamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensOrcamento">
+              <PropertyRef Name="Orcamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensOrca__Produ__4316F928">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="0..1" />
+          <End Role="ItensOrcamento" Type="Self.ItensOrcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensOrcamento">
+              <PropertyRef Name="Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensVend__Produ__440B1D61">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="0..1" />
+          <End Role="ItensVenda" Type="Self.ItensVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensVenda">
+              <PropertyRef Name="Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensVend__Venda__44FF419A">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="ItensVenda" Type="Self.ItensVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItensVenda">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lancament__Venda__45F365D3">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="Lancamento" Type="Self.Lancamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lancamento">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Marca__49C3F6B7">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="Marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orcamento__Venda__47DBAE45">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+          <End Role="Orcamento" Type="Self.Orcamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orcamento">
+              <PropertyRef Name="Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produto__Unidade__4AB81AF0">
+          <End Role="UnidadeMedidaTipos" Type="Self.UnidadeMedidaTipos" Multiplicity="0..1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadeMedidaTipos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="UnidadeMedidaTipos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sakitadbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Caixa" EntityType="Self.Caixa" />
+          <EntitySet Name="CategoriasTipo" EntityType="Self.CategoriasTipo" />
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="FormaDePagamento" EntityType="Self.FormaDePagamento" />
+          <EntitySet Name="ItensOrcamento" EntityType="Self.ItensOrcamento" />
+          <EntitySet Name="ItensVenda" EntityType="Self.ItensVenda" />
+          <EntitySet Name="Lancamento" EntityType="Self.Lancamento" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" />
+          <EntitySet Name="Orcamento" EntityType="Self.Orcamento" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" />
+          <EntitySet Name="UnidadeMedidaTipos" EntityType="Self.UnidadeMedidaTipos" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Venda" EntityType="Self.Venda" />
+          <AssociationSet Name="FK__Caixa__Usuario__3F466844" Association="Self.FK__Caixa__Usuario__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caixa" EntitySet="Caixa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venda__Caixa__4BAC3F29" Association="Self.FK__Venda__Caixa__4BAC3F29">
+            <End Role="Caixa" EntitySet="Caixa" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Categor__48CFD27E" Association="Self.FK__Produto__Categor__48CFD27E">
+            <End Role="CategoriasTipo" EntitySet="CategoriasTipo" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__Cidade__403A8C7D" Association="Self.FK__Cliente__Cidade__403A8C7D">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empresa__Cidade__412EB0B6" Association="Self.FK__Empresa__Cidade__412EB0B6">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orcamento__Clien__46E78A0C" Association="Self.FK__Orcamento__Clien__46E78A0C">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente" Association="Self.FK_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venda__FormaDePa__4CA06362" Association="Self.FK__Venda__FormaDePa__4CA06362">
+            <End Role="FormaDePagamento" EntitySet="FormaDePagamento" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensOrca__Orcam__4222D4EF" Association="Self.FK__ItensOrca__Orcam__4222D4EF">
+            <End Role="Orcamento" EntitySet="Orcamento" />
+            <End Role="ItensOrcamento" EntitySet="ItensOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensOrca__Produ__4316F928" Association="Self.FK__ItensOrca__Produ__4316F928">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItensOrcamento" EntitySet="ItensOrcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensVend__Produ__440B1D61" Association="Self.FK__ItensVend__Produ__440B1D61">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItensVenda" EntitySet="ItensVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensVend__Venda__44FF419A" Association="Self.FK__ItensVend__Venda__44FF419A">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="ItensVenda" EntitySet="ItensVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lancament__Venda__45F365D3" Association="Self.FK__Lancament__Venda__45F365D3">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="Lancamento" EntitySet="Lancamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Marca__49C3F6B7" Association="Self.FK__Produto__Marca__49C3F6B7">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orcamento__Venda__47DBAE45" Association="Self.FK__Orcamento__Venda__47DBAE45">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="Orcamento" EntitySet="Orcamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Unidade__4AB81AF0" Association="Self.FK__Produto__Unidade__4AB81AF0">
+            <End Role="UnidadeMedidaTipos" EntitySet="UnidadeMedidaTipos" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <FunctionImport Name="CalculaCaixa" ReturnType="Collection(Decimal)">
+            <Parameter Name="CaixaId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sakitadbModelStoreContainer" CdmEntityContainer="sakitadbEntities">
+          <EntitySetMapping Name="Caixa">
+            <EntityTypeMapping TypeName="sakitadbModel.Caixa">
+              <MappingFragment StoreEntitySet="Caixa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TotalFinal" ColumnName="TotalFinal" />
+                <ScalarProperty Name="TotalInicial" ColumnName="TotalInicial" />
+                <ScalarProperty Name="DataAbertura" ColumnName="DataAbertura" />
+                <ScalarProperty Name="DataFechamento" ColumnName="DataFechamento" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriasTipo">
+            <EntityTypeMapping TypeName="sakitadbModel.CategoriasTipo">
+              <MappingFragment StoreEntitySet="CategoriasTipo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cidade">
+            <EntityTypeMapping TypeName="sakitadbModel.Cidade">
+              <MappingFragment StoreEntitySet="Cidade">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CidadeNome" ColumnName="CidadeNome" />
+                <ScalarProperty Name="CidadeCodIbge" ColumnName="CidadeCodIbge" />
+                <ScalarProperty Name="CidadeUF" ColumnName="CidadeUF" />
+                <ScalarProperty Name="CidadeCodPais" ColumnName="CidadeCodPais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="sakitadbModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Rua" ColumnName="Rua" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="sakitadbModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NomeFantasia" ColumnName="NomeFantasia" />
+                <ScalarProperty Name="RazaoSocial" ColumnName="RazaoSocial" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Rua" ColumnName="Rua" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormaDePagamento">
+            <EntityTypeMapping TypeName="sakitadbModel.FormaDePagamento">
+              <MappingFragment StoreEntitySet="FormaDePagamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensOrcamento">
+            <EntityTypeMapping TypeName="sakitadbModel.ItensOrcamento">
+              <MappingFragment StoreEntitySet="ItensOrcamento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ValorProduto" ColumnName="ValorProduto" />
+                <ScalarProperty Name="Orcamento" ColumnName="Orcamento" />
+                <ScalarProperty Name="Produto" ColumnName="Produto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensVenda">
+            <EntityTypeMapping TypeName="sakitadbModel.ItensVenda">
+              <MappingFragment StoreEntitySet="ItensVenda">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ValorProduto" ColumnName="ValorProduto" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Produto" ColumnName="Produto" />
+                <ScalarProperty Name="Venda" ColumnName="Venda" />
+                <ScalarProperty Name="ValorTotalProdutos" ColumnName="ValorTotalProdutos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lancamento">
+            <EntityTypeMapping TypeName="sakitadbModel.Lancamento">
+              <MappingFragment StoreEntitySet="Lancamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Movimento" ColumnName="Movimento" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Venda" ColumnName="Venda" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="CaixaId" ColumnName="CaixaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marca">
+            <EntityTypeMapping TypeName="sakitadbModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orcamento">
+            <EntityTypeMapping TypeName="sakitadbModel.Orcamento">
+              <MappingFragment StoreEntitySet="Orcamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="dataorcamento" ColumnName="dataorcamento" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Venda" ColumnName="Venda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="sakitadbModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Estoque" ColumnName="Estoque" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="CategoriasTipo" ColumnName="CategoriasTipo" />
+                <ScalarProperty Name="UnidadeMedidaTipos" ColumnName="UnidadeMedidaTipos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadeMedidaTipos">
+            <EntityTypeMapping TypeName="sakitadbModel.UnidadeMedidaTipos">
+              <MappingFragment StoreEntitySet="UnidadeMedidaTipos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="sakitadbModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venda">
+            <EntityTypeMapping TypeName="sakitadbModel.Venda">
+              <MappingFragment StoreEntitySet="Venda">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataVenda" ColumnName="DataVenda" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Caixa" ColumnName="Caixa" />
+                <ScalarProperty Name="FormaDePagamento" ColumnName="FormaDePagamento" />
+                <ScalarProperty Name="MaodeObra" ColumnName="MaodeObra" />
+                <ScalarProperty Name="Desconto" ColumnName="Desconto" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CalculaCaixa" FunctionName="sakitadbModel.Store.CalculaCaixa" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
