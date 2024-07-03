@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<FerrazIrrigacoes.Models.Cidade>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cidade</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create", null, new {@class = "btn btn-success btn-sm"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Nome")
+        </th>
+        <th>
+            @Html.DisplayName("CodigoNome")
+        </th>
+        <th>
+            @Html.DisplayName("UF")
+        </th>
+        <th>
+            @Html.DisplayName("CodigoPais")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeCodIbge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeUF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeCodPais)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class = "btn btn-primary btn-sm"}) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new {@class = "btn btn-secondary btn-sm"})
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "Index", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Anterior", "Index", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Anterior
+    }
+
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Próxima >", "Index", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "Index", new { pagina = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:Próxima >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model FerrazIrrigacoes.Models.Cidade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cidade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeCodIbge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeCodIbge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeUF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeUF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeCodPais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeCodPais)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

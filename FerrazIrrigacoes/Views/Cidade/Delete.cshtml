@@ -1,0 +1,56 @@
+﻿@model FerrazIrrigacoes.Models.Cidade
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cidade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeCodIbge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeCodIbge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeUF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeUF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CidadeCodPais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CidadeCodPais)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
