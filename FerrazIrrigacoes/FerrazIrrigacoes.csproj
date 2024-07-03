@@ -130,9 +130,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriasTipoController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\MarcaController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\UnidadeMedidaTipoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -287,6 +291,26 @@
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\UnidadeMedidaTipo\Create.cshtml" />
+    <Content Include="Views\UnidadeMedidaTipo\Delete.cshtml" />
+    <Content Include="Views\UnidadeMedidaTipo\Details.cshtml" />
+    <Content Include="Views\UnidadeMedidaTipo\Edit.cshtml" />
+    <Content Include="Views\UnidadeMedidaTipo\Index.cshtml" />
+    <Content Include="Views\Lancamentoes\Create.cshtml" />
+    <Content Include="Views\Lancamentoes\Delete.cshtml" />
+    <Content Include="Views\Lancamentoes\Details.cshtml" />
+    <Content Include="Views\Lancamentoes\Edit.cshtml" />
+    <Content Include="Views\Lancamentoes\Index.cshtml" />
+    <Content Include="Views\Empresa\Create.cshtml" />
+    <Content Include="Views\Empresa\Delete.cshtml" />
+    <Content Include="Views\Empresa\Details.cshtml" />
+    <Content Include="Views\Empresa\Edit.cshtml" />
+    <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
