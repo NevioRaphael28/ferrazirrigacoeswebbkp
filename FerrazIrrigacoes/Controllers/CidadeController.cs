@@ -116,11 +116,21 @@ namespace FerrazIrrigacoes.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cidade cidade = db.Cidade.Find(id);
-            db.Cidade.Remove(cidade);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                Cidade cidade = db.Cidade.Find(id);
+                db.Cidade.Remove(cidade);
+                db.SaveChanges();
+                TempData["erro"] = "Exclusao realizada.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["erro"] = "Erro na exclusao";
+                return RedirectToAction("Index");
+
+            }
         }
+
 
         protected override void Dispose(bool disposing)
         {
