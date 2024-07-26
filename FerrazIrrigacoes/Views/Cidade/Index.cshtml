@@ -5,8 +5,15 @@
 
 <h2>Cidade</h2>
 
+@if (TempData["erro"] != null)
+{
+    <script>
+        var texto = '@TempData["erro"]';
+        alert(texto);
+    </script>
+}
 <p>
-    @Html.ActionLink("Novo", "Create", null, new {@class = "btn btn-success btn-sm"})
+    @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-success btn-sm" })
 </p>
 <table class="table">
     <tr>
@@ -41,8 +48,8 @@
                 @Html.DisplayFor(modelItem => item.CidadeCodPais)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class = "btn btn-primary btn-sm"}) |
-                @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new {@class = "btn btn-secondary btn-sm"})
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Tem certeza que deseja excluir este cliente?');" })
             </td>
         </tr>
     }
