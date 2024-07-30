@@ -1,14 +1,57 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    <link rel="stylesheet" href="content/site.css" />
+    <script src="https://kit.fontawesome.com/e2b4ec850b.js" crossorigin="anonymous"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="resources/logo.png" alt="logo" />
+            <h2>Ferraz Irrigações</h2>
+        </div>
+        <ul class="sidebar-links">
+            <h4>
+                <span>Cadastro</span>
+                <div class="menu-separator"></div>
+            </h4>
+
+            <li><a href="cliente"><span class="fa-solid fa-user"> </span>Cliente</a> </li>
+            <li><a href="Cidade"><span class="fa-solid fa-city"></span>Cidade</a></li>
+            <li><a href="Empresa"><span class="fa-solid fa-handshake"> </span>Empresa</a></li>
+
+            <h4>
+                <span>Produtos</span>
+                <div class="menu-separator"></div>
+            </h4>
+
+            <li><a href="Produto"><span class="fa-solid fa-barcode"> </span>Produto</a></li>
+            <li><a href="CategoriasTipo"><span class="fa-solid fa-layer-group"></span>Categorias</a></li>
+
+            <h4>
+                <span>Ordem de Serviço</span>
+                <div class="menu-separator"></div>
+            </h4>
+
+            <li><a href="Lancamento"><span class="fa-solid fa-store"> </span>Lançamento</a> </li>
+        </ul>
+
+        <div class="user-account">
+            <div class="user-profile">
+                <img src="resources/Usuarioboi.png" alt="Profile Image" />
+                <div class="user-detail">
+                    <h3>Usuário boi</h3>
+                    <span>Agricultor</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!--
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
             <strong>
@@ -24,6 +67,7 @@
                     <li>@Html.ActionLink("Empresa", "Index", "Empresa", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Produto", "Index", "Produto", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Marca", "Index", "Marca", new { area = "" }, new { @class = "nav-link" })</li>
+
                     <li>@Html.ActionLink("Usuario", "Index", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Cidade", "Index", "Cidade", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Lancamento", "Index", "Lancamento", new { area = "" }, new { @class = "nav-link" })</li>
@@ -33,6 +77,7 @@
             </div>
         </div>
     </nav>
+    -->
     <div class="container body-content">
         @RenderBody()
         <hr />

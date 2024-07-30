@@ -38,6 +38,7 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -123,5 +124,30 @@ namespace FerrazIrrigacoes.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Login()
+        { 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Id,Email,Senha,Nome,Cargo")] Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                string login = usuario.Email;
+                string senha = usuario.Senha;
+                var dados = db.Usuario.Where(registro => registro.Email.Equals(login) && registro.Senha.Equals(senha)).FirstOrDefault();
+
+                if (dados != null)
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Login");
+            }
+
+            return View();
+        }
+
     }
 }
