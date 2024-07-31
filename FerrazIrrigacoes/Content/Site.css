@@ -105,14 +105,14 @@ body {
         .sidebar-links li a {
             display: flex;
             align-items: center;
-            gap: 20px; /* Aumentar o espaço entre ícones e texto */
+            gap: 25px; /* Aumentar o espaço entre ícones e texto */
             color: #fff;
             font-weight: 500;
             white-space: nowrap;
             padding: 15px 10px;
             text-decoration: none;
             transition: 0.2s ease;
-            width: 100%; /* Ocupa toda a largura do item */
+            width: 70%; /* Ocupa toda a largura do item */
             text-align: left; /* Alinha o texto à esquerda */
         }
 
