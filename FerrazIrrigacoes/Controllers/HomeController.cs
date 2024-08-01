@@ -10,6 +10,10 @@ namespace FerrazIrrigacoes.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
             return View();
         }
 

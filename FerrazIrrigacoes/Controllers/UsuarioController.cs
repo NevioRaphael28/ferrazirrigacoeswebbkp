@@ -141,7 +141,9 @@ namespace FerrazIrrigacoes.Controllers
 
                 if (dados != null)
                 {
-                    return RedirectToAction("Index");
+                    Session["Usuarioid"] = usuario.Email;
+                    Session["Senhaid"] = usuario.Senha;
+                    return RedirectToAction("Index", "Home", null);
                 }
                 return RedirectToAction("Login");
             }
