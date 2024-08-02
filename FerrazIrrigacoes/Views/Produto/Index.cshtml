@@ -9,31 +9,33 @@
 <p>
     @Html.ActionLink("Novo", "Create", null, new {@class = "btn btn-success btn-sm"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estoque)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoriasTipo1.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Marca1.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnidadeMedidaTipos1.Nome)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-hover table-striped bg-white">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estoque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriasTipo1.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca1.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnidadeMedidaTipos1.Nome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
 @foreach (var item in Model) {
     <tr>
@@ -58,10 +60,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.UnidadeMedidaTipos1.Nome)
         </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }, new {@class = "btn btn-primary btn-sm"}) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }, new {@class = "btn btn-primary btn-sm"}) |
-            @Html.ActionLink("Deletar", "Delete", new { id=item.Id }, new {@class = "btn btn-primary btn-sm"})
+        <td style="text-align: center;">
+            <div class="btn-group" role="group">
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            </div>
         </td>
     </tr>
 }

@@ -18,6 +18,10 @@ namespace FerrazIrrigacoes.Controllers
         public ActionResult Index()
         {
             var produto = db.Produto.Include(p => p.CategoriasTipo1).Include(p => p.Marca1).Include(p => p.UnidadeMedidaTipos1);
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
             return View(produto.ToList());
         }
 

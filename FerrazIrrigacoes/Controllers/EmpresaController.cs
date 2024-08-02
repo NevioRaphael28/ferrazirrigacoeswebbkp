@@ -18,6 +18,12 @@ namespace FerrazIrrigacoes.Controllers
         public ActionResult Index()
         {
             var empresa = db.Empresa.Include(e => e.Cidade1);
+
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
+
             return View(empresa.ToList());
         }
 
