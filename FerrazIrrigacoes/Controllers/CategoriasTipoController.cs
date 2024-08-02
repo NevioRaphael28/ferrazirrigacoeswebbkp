@@ -17,6 +17,10 @@ namespace FerrazIrrigacoes.Controllers
         // GET: CategoriasTipo
         public ActionResult Index()
         {
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
             return View(db.CategoriasTipo.ToList());
         }
 

@@ -49,14 +49,15 @@
                             <i class="fa-solid fa-lock"></i>
                         </span>
                         @Html.EditorFor(model => model.Senha, new
-                        {
-                            htmlAttributes = new
-                            {
-                                @class = "form-control input-lg",
-                                placeholder = "Senha",
-                                autofocus = true
-                            }
-                        })
+                   {
+                       htmlAttributes = new
+                       {
+                           @class = "form-control input-lg",
+                           placeholder = "Senha",
+                           autofocus = true,
+                           type = "password"
+                       }
+                   })
                         @Html.ValidationMessageFor(model => model.Senha, "",
                               new { @class = "text-danger" })
 

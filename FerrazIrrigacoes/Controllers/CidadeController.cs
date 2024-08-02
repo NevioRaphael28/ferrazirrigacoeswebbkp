@@ -18,12 +18,19 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Cidade
         public ActionResult Index(int? pagina)
         {
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
+
             var contexto = new sakitadbEntities();
-            var listaAlunos = contexto.Cidade.ToList();
+            var listaCidades = contexto.Cidade.ToList();
             int paginaTamanho = 10;
             int paginaNumero = (pagina ?? 1);
 
-            return View(listaAlunos.ToPagedList(paginaNumero, paginaTamanho));
+            
+
+            return View(listaCidades.ToPagedList(paginaNumero, paginaTamanho));
             //return View(db.Cidade.ToList());
         }
 

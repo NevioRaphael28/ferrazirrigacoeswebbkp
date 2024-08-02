@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
+using PagedList;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -15,12 +16,24 @@ namespace FerrazIrrigacoes.Controllers
         private sakitadbEntities db = new sakitadbEntities();
 
         // GET: Lancamento
-        public ActionResult Index()
-        {
-            var lancamento = db.Lancamento.Include(l => l.Venda1);
-            return View(lancamento.ToList());
-        }
 
+        public ActionResult Index(int? pagina)
+        {
+            if (Session["Usuarioid"] == null)
+            {
+                return RedirectToAction("Login", "Usuario", null);
+            }
+
+            var contexto = new sakitadbEntities();
+            var listaLancamento = contexto.Lancamento.ToList();
+            int paginaTamanho = 10;
+            int paginaLancamento = (pagina ?? 1);
+
+
+
+            return View(listaLancamento.ToPagedList(paginaLancamento, paginaTamanho));
+            //return View(db.Cidade.ToList());
+        }      
         // GET: Lancamento/Details/5
         public ActionResult Details(int? id)
         {
