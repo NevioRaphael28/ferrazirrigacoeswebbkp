@@ -1,0 +1,58 @@
+﻿@model FerrazIrrigacoes.Models.Caixa
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Caixa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataAbertura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataAbertura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFechamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFechamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario1.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
