@@ -1,0 +1,165 @@
+﻿<hmtl>
+    <head>
+        Lançamento
+    </head>
+
+    <script src="~/Scripts/jquery-3.7.0.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+
+        $("#btnNovaVenda").click(function () {
+            GerarNovaVenda(0);
+        });
+        $("#btnAddToList").click(function () {
+            AdicionarProduto(0);
+        });
+        
+    });
+
+
+    function AdicionarProduto(){
+        var VendaId = $("txtVendaId").val();
+        var ProdutoId = $("#Produto").val();
+        var ProdutoNome = $("#Produto option:selection").text();
+
+        var Item = {};
+        Item.VendaId = vendaId;
+        Item.PodutoId = produtoId;
+
+        $.ajax({
+            aysnc: true,
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            url: '/Venda/InserirItem',
+            success: function () {  
+                
+            },
+            error: function () {      
+                
+            }
+        });
+
+        var NovoProduto = "<tr><td hidden>" + produtoId
+            + "</td><td>" + LivroNome
+            + "</td><td> <input type='button' data-id=ItemId value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' /> </tr></tr>";
+
+        tbItens.append(NovoProduto);
+
+    }
+
+    function GerarNovaVenda(Id) {
+        $.ajax({
+            aysnc: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { Id: Id },
+            url: '/Venda/GerarNovaVenda',
+            success: function (data) {
+                $("#txtVendaI").val(parseInt(data));
+            },
+            error: function () {
+                alert("Erro ao gerar nova venda.");
+            }
+        });
+    }
+
+
+
+    </script>
+
+    <body>
+        <fieldset>
+            <legend>
+                Vendas
+            </legend>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="button" style="margin-top: 20px" value="Nova Venda"
+                                   name="NovaVenda" id="btnNovaVenda" class="btn btn-success" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                Cliente:
+                                @Html.DropDownList("Cliente", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            Venda:
+                            <input type="text" readonly="readonly" id="txtVendaI" value="0" name="VendaI" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            Data Venda:
+                            <input type="datetime" id="txtVenda" value="10/05/2022" name="dtVenda" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            Devolução:
+                            <input type="datetime" id="txtDevolucao" value="10/05/2022" name="Devolucao" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Itens da Venda</legend>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            Produto:
+                            @Html.DropDownList("Produto", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="button" value="Adicionar" name="AddToList" id="btnAddToList" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Itens Vendidos</legend>
+            <table style="width:100%" id="tbItens">
+                <thead>
+                    <tr>
+                        <th hidden>Item</th>
+                        <th>Produtos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+            </table>
+        </fieldset>
+
+    </body>
+
+
+
+</hmtl>
