@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
+using FerrazIrrigacoes.Repositorio;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -19,6 +20,18 @@ namespace FerrazIrrigacoes.Controllers
         {
             var venda = db.Venda.Include(v => v.Caixa1).Include(v => v.Cliente).Include(v => v.FormaDePagamento1);
             return View(venda.ToList());
+        }
+
+        public JsonResult GerarNovaVenda()
+        {
+            VendaRepositorio objGerar = new VendaRepositorio();
+            int Id = objGerar.GerarNovaVenda();
+            return Json(Id, JsonRequestBehavior.AllowGet);
+        }
+
+        public void InserirItem(ItensVenda objdados) { 
+            VendaItensRepositorio objgravar = new VendaItensRepositorio();
+            objgravar.InserirItem(objdados);
         }
 
         // GET: Venda/Details/5
@@ -34,6 +47,17 @@ namespace FerrazIrrigacoes.Controllers
                 return HttpNotFound();
             }
             return View(venda);
+        }
+
+        public ActionResult Lancar()
+        {
+            //Passar os valores para a tela
+            ViewBag.Cliente = new SelectList(db.Cliente, "Id", "Nome");
+
+            //Passar os dados
+            ViewBag.Produto = new SelectList(db.Produto, "Id", "Nome");
+
+            return View();
         }
 
         // GET: Venda/Create
