@@ -34,6 +34,12 @@ namespace FerrazIrrigacoes.Controllers
             objgravar.InserirItem(objdados);
         }
 
+        public void FecharVenda(Venda objdados)
+        {
+            VendaRepositorio objFechar = new VendaRepositorio();
+            objFechar.FecharVenda(objdados);
+        }
+
         // GET: Venda/Details/5
         public ActionResult Details(int? id)
         {

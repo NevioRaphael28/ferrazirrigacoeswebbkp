@@ -26,5 +26,11 @@ namespace FerrazIrrigacoes.Repositorio
             return objinserir.Id;
         }
 
+        public void FecharVenda(Venda objdados)
+        {
+            db.Entry(objdados).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
     }
 }
