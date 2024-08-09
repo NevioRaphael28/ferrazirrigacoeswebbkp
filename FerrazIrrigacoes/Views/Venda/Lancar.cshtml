@@ -15,18 +15,47 @@
         $("#btnAddToList").click(function () {
             AdicionarProduto(0);
         });
+
+        $("#btnFechaVenda").click(function () {
+            FechaVenda();
+        });
         
     });
 
+        function FechaVenda() {
+            var VendaId = $("#txtVendaI").val();
+            var ClienteId = $("#Cliente").val();
+      
+
+            var Venda = {};
+            Venda.Id = VendaId;
+            Venda.ClienteId = ClienteId;
+
+            $.ajax({
+                aysnc: true,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Venda),
+                url: '/Venda/FecharVenda',
+                success: function () {
+
+                },
+                error: function () {
+
+                }
+            });
+        }
+
 
     function AdicionarProduto(){
-        var VendaId = $("txtVendaId").val();
+        var VendaId = $("#txtVendaI").val();
         var ProdutoId = $("#Produto").val();
-        var ProdutoNome = $("#Produto option:selection").text();
+        var ProdutoNome = $("#Produto option:selected").text();
 
         var Item = {};
-        Item.VendaId = vendaId;
-        Item.PodutoId = produtoId;
+        Item.VendaId = VendaId;
+        Item.ProdutoId = ProdutoId;
 
         $.ajax({
             aysnc: true,
@@ -43,13 +72,33 @@
             }
         });
 
-        var NovoProduto = "<tr><td hidden>" + produtoId
-            + "</td><td>" + LivroNome
-            + "</td><td> <input type='button' data-id=ItemId value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' /> </tr></tr>";
+        RemoveTableRow = function (handler) {
+            var tr = $(handler).closest('tr');
 
-        tbItens.append(NovoProduto);
+            tr.fadeOut(400, function () {
+                tr.remove();
+            });
 
-    }
+            return false;
+        }
+
+
+        var newRow = $("<tr>");
+        var cols = "";
+        cols += '<td>' + ProdutoId + '</td>';
+        cols += '<td>' + ProdutoNome + '</td>';
+        cols += '<td class="actions">';
+        cols += '<button class="btn btn-large btn-danger" onclick="RemoveTableRow(this)" type="button">Remover</button>';
+        cols += '</td>';
+
+        newRow.append(cols);
+
+        $('#tbItens').append(newRow);
+
+        }
+
+       
+
 
     function GerarNovaVenda(Id) {
         $.ajax({
@@ -110,12 +159,13 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
                             Devolução:
                             <input type="datetime" id="txtDevolucao" value="10/05/2022" name="Devolucao" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="button" style="margin-top: 20px" id="btnFechaVenda" value="Fechar Venda" class="btn btn-success" />
                         </div>
                     </div>
                 </div>
@@ -138,7 +188,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="button" value="Adicionar" name="AddToList" id="btnAddToList" class="btn btn-success" />
+                            <input type="button" style="margin-top: 20px" value="Adicionar" name="AddToList" id="btnAddToList" class="btn btn-success" />
                         </div>
                     </div>
                 </div>
