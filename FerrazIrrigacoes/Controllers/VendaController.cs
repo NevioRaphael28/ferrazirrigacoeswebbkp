@@ -38,6 +38,8 @@ namespace FerrazIrrigacoes.Controllers
         {
             VendaRepositorio objFechar = new VendaRepositorio();
             objFechar.FecharVenda(objdados);
+           //
+           //return Json(data: "Venda realizada com sucesso!", JsonRequestBehavior.AllowGet);
         }
 
         // GET: Venda/Details/5
@@ -165,6 +167,12 @@ namespace FerrazIrrigacoes.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpGet]
+        public JsonResult BuscarValor(int id)
+        {
+            decimal produtoId = Convert.ToDecimal(db.Produto.Single(model => model.Id == id).Valor);
+            return Json(produtoId, JsonRequestBehavior.AllowGet);
         }
     }
 }
