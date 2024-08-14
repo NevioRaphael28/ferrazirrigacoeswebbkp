@@ -171,8 +171,14 @@ namespace FerrazIrrigacoes.Controllers
         [HttpGet]
         public JsonResult BuscarValor(int id)
         {
-            decimal produtoId = Convert.ToDecimal(db.Produto.Single(model => model.Id == id).Valor);
-            return Json(produtoId, JsonRequestBehavior.AllowGet);
+            var produto = db.Produto.SingleOrDefault(p => p.Id == id);
+
+            if (produto == null)
+            {
+                return Json(new { sucesso = false, mensagem = "Produto não encontrado" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { sucesso = true, valor = produto.Valor }, JsonRequestBehavior.AllowGet);
         }
     }
 }

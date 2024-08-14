@@ -23,7 +23,7 @@
                 BuscarValor(ProdutoId);
             })
 
-         
+
         });
 
         function FecharVenda() {
@@ -57,10 +57,12 @@
             var ProdutoId = $("#Produto").val();
             var ProdutoNome = $("#Produto option:selected").text();
             var ProdutoValor = $("#txtValorProduto").val();
+            var Quantidade = $("#txtQuantidadeProduto").val();
 
             var Item = {
                 VendaId: VendaId,
                 ProdutoId: ProdutoId,
+                Quantidade: Quantidade,
                 Valor: ProdutoValor
             };
 
@@ -85,6 +87,7 @@
             cols += '<td>' + ProdutoId + '</td>';
             cols += '<td>' + ProdutoNome + '</td>';
             cols += '<td>' + ProdutoValor + '</td>';
+            cols += '<td>' + Quantidade + '</td>';  // Exibir a quantidade
             cols += '<td class="actions">';
             cols += '<button class="btn btn-large btn-danger" onclick="RemoveTableRow(this)" type="button">Remover</button>';
             cols += '</td>';
@@ -109,16 +112,21 @@
                 type: 'GET',
                 dataType: 'JSON',
                 contentType: 'application/json; charset=utf-8',
-                data: { produtoId: produtoId }, // Corrige o envio do ID
-                url: '/Venda/BuscarValor', // URL para buscar o valor do produto                
-                success: function (data) {
-                    $("#txtValorProduto").val(parseFloat(data).ToFixed(2));
+                data: { id: produtoId },
+                url: '/Venda/BuscarValor',
+                success: function (response) {
+                    if (response.sucesso) {
+                        $("#txtValorProduto").val(parseFloat(response.valor).toFixed(2));
+                    } else {
+                        alert(response.mensagem);
+                    }
                 },
                 error: function () {
                     alert("Erro ao buscar o valor do produto.");
                 }
             });
         }
+
 
         function GerarNovaVenda(Id) {
             $.ajax({
@@ -201,6 +209,12 @@
                     <div class="form-group">
                         Valor:
                         <input type="number" id="txtValorProduto" name="txtValorProduto" class="form-control" placeholder="Valor do Produto" readonly />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Quantidade:
+                        <input type="number" id="txtQuantidadeProduto" name="txtQuantidadeProduto" class="form-control" placeholder="Quantidade" value="1" min="1" />
                     </div>
                 </div>
                 <div class="col-md-3">

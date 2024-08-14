@@ -12,7 +12,7 @@
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="resources/logo.png" alt="logo" />
+            <img src="~/resources/logo.png" alt="logo" />
             <h2>Ferraz Irrigações</h2>
         </div>
         <ul class="sidebar-links">
@@ -21,31 +21,32 @@
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="cliente"><span class="fa-solid fa-user"> </span>Cliente</a> </li>
-            <li><a href="Cidade"><span class="fa-solid fa-city"></span>Cidade</a></li>
-            <li><a href="Empresa"><span class="fa-solid fa-handshake"> </span>Empresa</a></li>
+            <li><a href="@Url.Content("~/Cliente")"><span class="fa-solid fa-user"> </span>Cliente</a> </li>
+            <li><a href="@Url.Content("~/Cidade")"><span class="fa-solid fa-city"></span>Cidade</a></li>
+            <li><a href="@Url.Content("~/Empresa")"><span class="fa-solid fa-handshake"> </span>Empresa</a></li>
 
             <h4>
                 <span>Produtos</span>
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="Produto"><span class="fa-solid fa-barcode"> </span>Produto</a></li>
-            <li><a href="CategoriasTipo"><span class="fa-solid fa-layer-group"></span>Categorias</a></li>
-            <li><a href="Marca"><span class="fa-solid fa-registered"></span>Marca</a></li>
+            <li><a href="@Url.Content("~/Produto")"><span class="fa-solid fa-barcode"> </span>Produto</a></li>
+            <li><a href="@Url.Content("~/CategoriasTipo")"><span class="fa-solid fa-layer-group"></span>Categorias</a></li>
+            <li><a href="@Url.Content("~/Marca")"><span class="fa-solid fa-registered"></span>Marca</a></li>
 
             <h4>
                 <span>Ordem de Serviço</span>
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="Lancamento"><span class="fa-solid fa-store"> </span>Lançamento</a> </li>
-            <li><a href="Venda/Lancar"><span class="fa-solid fa-store"> </span>Vendas</a> </li>
+            <li><a href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-store"> </span>Lançamento</a> </li>
+            <li><a href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-store"> </span>Vendas</a> </li>
         </ul>
+
 
         <div class="user-account">
             <div class="user-profile">
-                <img src="resources/Usuarioboi.png" alt="Profile Image" />
+                <img src="~/resources/Usuarioboi.png" alt="Profile Image" />
                 <div class="user-detail">
                     <h3>Usuário boi</h3>
                     <span>Agricultor</span>
