@@ -1,29 +1,60 @@
-﻿body {
-    background-color: #f0f0f0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+﻿@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&display=swap');
+
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 400;
+    font-style: normal;
     color: #313131;
     line-height: 1;
     padding: 5px;
+    background-image: url('/resources/fundo.png'); /* Adicione o caminho da sua imagem aqui */
+    background-size: cover; /* A imagem cobre todo o fundo */
+    background-position: center; /* Centraliza a imagem no fundo */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
 }
 
-{
+.logo-container {
+    text-align: center; /* Centraliza a logo */
+    margin-bottom: 15px; /* Adiciona um espaço abaixo da logo */
+}
+
+.logo {
+    max-width: 200px; /* Ajuste o tamanho máximo da logo conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.input-group-addon, .form-control {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: #333;
+}
+
+html, body {
     width: 100%;
     height: 100%;
     background-color: #2D333B;
+    margin: 0;
+    padding: 0;
 }
 
 .form-login {
     max-width: 450px;
-    max-height: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Alterado para transparência */
     border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     margin-top: 10%;
 }
 
+
     .form-login input {
         margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
     }
 
 .btn {
@@ -35,111 +66,118 @@
     font-weight: 700;
     text-transform: uppercase;
     margin: 15px 5px 0;
-    transition: all .2s;
+    transition: all 0.2s;
     min-width: 100px;
     text-align: center;
     font-size: 14px;
+    border-radius: 5px;
 }
 
-    .btn:hover, .btn.hover {
-        background: #ddd;
-        color: #777;
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.panel-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn:hover, .btn.hover {
+    background: #ddd;
+    color: #777;
+}
+
+.btn.btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+}
+
+.btn.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.btn.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+}
+
+.btn.primary {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+    .btn.primary:hover, .btn.primary.hover {
+        background: #3498db;
+        color: #fff;
     }
 
-    .btn.btn-lg {
-        padding: 10px 16px;
-        font-size: 18px;
+.btn.danger {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+    .btn.danger:hover, .btn.danger.hover {
+        background: #e74c3c;
+        color: #fff;
     }
 
-    .btn.btn-sm {
-        padding: 5px 10px;
-        font-size: 12px;
+.btn.success {
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+    .btn.success:hover, .btn.success.hover {
+        background: #27ae60;
+        color: #fff;
     }
 
-    .btn.btn-xs {
-        padding: 1px 5px;
-        font-size: 12px;
-        padding: 1px 5px;
-        font-size: 12px;
+.btn.warning {
+    border-color: #f1c40f;
+    color: #f1c40f;
+}
+
+    .btn.warning:hover, .btn.warning.hover {
+        background: #f1c40f;
+        color: #fff;
     }
 
-    .btn.primary {
-        border-color: #3498db;
-        color: #3498db;
+.btn.black {
+    border-color: #34495e;
+    color: #34495e;
+}
+
+    .btn.black:hover, .btn.black.hover {
+        background: #34495e;
+        color: #fff;
     }
 
-        .btn.primary:hover, .btn.primary.hover {
-            background: #3498db;
-            color: #fff;
-        }
+.btn.info {
+    border-color: #5bc0de;
+    color: #5bc0de;
+}
 
-    .btn.danger {
-        border-color: #e74c3c;
-        color: #e74c3c;
+    .btn.info:hover, .btn.info.hover {
+        background: #5bc0de;
+        color: #fff;
     }
 
-        .btn.danger:hover, .btn.danger.hover {
-            background: #e74c3c;
-            color: #fff;
-        }
+.btn.clear {
+    border-color: #777;
+    color: #777;
+}
 
-    .btn.success {
-        border-color: #27ae60;
-        color: #27ae60;
+    .btn.clear:hover, .btn.clear.hover {
+        background: #777;
+        color: #fff;
     }
 
-        .btn.success:hover, .btn.success.hover {
-            background: #27ae60;
-            color: #fff;
-        }
-
-    .btn.warning {
-        border-color: #f1c40f;
-        color: #f1c40f;
-    }
-
-        .btn.warning:hover, .btn.warning.hover {
-            background: #f1c40f;
-            color: #fff;
-        }
-
-    .btn.black {
-        border-color: #34495e;
-        color: #34495e;
-    }
-
-        .btn.black:hover, .btn.black.hover {
-            background: #34495e;
-            color: #fff;
-        }
-
-    .btn.black {
-        border-color: #34495e;
-        color: #34495e;
-    }
-
-        .btn.black:hover, .btn.black.hover {
-            background: #34495e;
-            color: #fff;
-        }
-
-    .btn.info {
-        border-color: #5bc0de;
-        color: #5bc0de;
-    }
-
-        .btn.info:hover, .btn.info.hover {
-            background: #5bc0de;
-            color: #fff;
-        }
-
-    .btn.clear {
-        border-color: #777;
-        color: #777;
-    }
-
-        .btn.clear:hover, .btn.clear.hover {
-            background: #777;
-            color: #fff;
-        }
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }

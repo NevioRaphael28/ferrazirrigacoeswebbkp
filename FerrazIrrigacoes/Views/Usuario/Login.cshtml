@@ -11,21 +11,24 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.7.0.js"></script>
 
-@using (Html.BeginForm("Login", "Usuario", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
- new { @class = "form-horizontal" }))
+
+@using (Html.BeginForm("Login", "Usuario", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken();
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="container">
         <div class="form-login">
+            <div class="logo-container">
+                <img src="~/resources/logo.png" alt="Logo" class="logo">
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-title">Ferraz Irrigações</div>
+                    <div class="panel-title">Painel Administrador</div>
                 </div>
                 <div style="padding-top:30px" class="panel-body">
-                    <div style="display:none" id="result" class="alert alert-danger col-sm-12">
-                    </div>
+                    <div style="display:none" id="result" class="alert alert-danger col-sm-12"></div>
+
                     <div style="margin-bottom:25px" class="input-group">
                         <span class="input-group-addon">
                             <i class="fa-solid fa-user"></i>
@@ -39,9 +42,7 @@
                                 autofocus = true
                             }
                         })
-                        @Html.ValidationMessageFor(model => model.Email, "",
-                              new { @class = "text-danger" })
-
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
 
                     <div style="margin-bottom:25px" class="input-group">
@@ -49,30 +50,24 @@
                             <i class="fa-solid fa-lock"></i>
                         </span>
                         @Html.EditorFor(model => model.Senha, new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control input-lg",
-                           placeholder = "Senha",
-                           autofocus = true,
-                           type = "password"
-                       }
-                   })
-                        @Html.ValidationMessageFor(model => model.Senha, "",
-                              new { @class = "text-danger" })
-
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control input-lg",
+                                placeholder = "Senha",
+                                autofocus = true,
+                                type = "password"
+                            }
+                        })
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                     </div>
 
-                    <div style="margin-top:10px;margin-left:10%" class="form-group">
-                        <div class="col-sm-12 controls">
-                            <input type="submit" value="Login" class="btn btn-success btn-lg" />
-                            <input type="reset" value="Limpar" class="btn btn-danger btn-lg" />
-                        </div>
+                    <div class="button-container">
+                        <input type="submit" value="Login" class="btn btn-success btn-lg" />
+                        <input type="reset" value="Limpar" class="btn btn-danger btn-lg" />
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 }
