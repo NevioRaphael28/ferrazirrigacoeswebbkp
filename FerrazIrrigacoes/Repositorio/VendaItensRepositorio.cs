@@ -16,6 +16,7 @@ namespace FerrazIrrigacoes.Repositorio
 
         public void InserirItem(ItensVenda objdados)
         {
+            objdados.ValorTotalProdutos = objdados.ValorProduto * objdados.Quantidade;
             db.ItensVenda.Add(objdados);
             db.SaveChanges();
         }
