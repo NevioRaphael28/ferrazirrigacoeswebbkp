@@ -56,15 +56,17 @@
             var VendaId = $("#txtVendaI").val();
             var ProdutoId = $("#Produto").val();
             var ProdutoNome = $("#Produto option:selected").text();
-            var ProdutoValor = $("#txtValorProduto").val();
-            var Quantidade = $("#txtQuantidadeProduto").val();
+            var ProdutoValor = parseFloat($("#txtValorProduto").val());
+            var Quantidade = parseInt($("#txtQuantidadeProduto").val());
+            var TotalProdutos = (ProdutoValor * Quantidade).toFixed(2);
 
-            var Item = {
-                VendaId: VendaId,
-                ProdutoId: ProdutoId,
-                Quantidade: Quantidade,
-                Valor: ProdutoValor
-            };
+            var Item = {}         
+            Item.Venda = VendaId;
+            Item.Produto = ProdutoId;
+            Item.Quantidade = Quantidade;
+            Item.ValorProduto = ProdutoValor;
+            Item.ValorTotalProdutos = TotalProdutos;
+         
 
             $.ajax({
                 async: true,
@@ -86,8 +88,10 @@
             var cols = "";
             cols += '<td>' + ProdutoId + '</td>';
             cols += '<td>' + ProdutoNome + '</td>';
-            cols += '<td>' + ProdutoValor + '</td>';
-            cols += '<td>' + Quantidade + '</td>';  // Exibir a quantidade
+            cols += '<td>' + ProdutoValor.toFixed(2) + '</td>';
+            cols += '<td>' + Quantidade + '</td>';
+            cols += '<td>' + TotalProdutos + '</td>';
+            // Exibir a quantidade
             cols += '<td class="actions">';
             cols += '<button class="btn btn-large btn-danger" onclick="RemoveTableRow(this)" type="button">Remover</button>';
             cols += '</td>';
@@ -232,13 +236,15 @@
             <thead>
                 <tr>
                     <th hidden>Item</th>
+                    <th>Id</th>
                     <th>Produtos</th>
-                    <th>Valor</th>
+                    <th>Valor Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Os itens adicionados aparecerão aqui -->
             </tbody>
         </table>
     </fieldset>
