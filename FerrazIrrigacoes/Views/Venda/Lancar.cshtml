@@ -23,8 +23,95 @@
                 BuscarValor(ProdutoId);
             })
 
+             // Display modal
+            $("#btnShowModal").click(function () {
+                mostrarDetalhesVenda();
+                carregarFormasPagamento();
+            });
 
+            // Update final value on discount change
+            $("#txtDiscount").on('input', function () {
+                atualizarValorFinal();
+            });
+
+            // Close the modal
+            $(".close").click(function () {
+                $('#myModal').modal('hide');
+            });
+
+            $(window).click(function (event) {
+                if ($(event.target).is('#myModal')) {
+                    $('#myModal').modal('hide');
+                }
+            });
+
+            $("#btnSubmit").click(function () {
+                var vendaFinal = {
+                    total: $('#txtTotalValue').val(),
+                    pagamento: $('#ddlPaymentMethod').val(),
+                    desconto: $('#txtDiscount').val(),
+                    valorFinal: $('#txtFinalValue').val()
+                };
+
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(vendaFinal),
+                    url: '@Url.Action("ConcluirVenda", "Venda")',
+                    success: function () {
+                        alert("Venda concluída com sucesso!");
+                        $('#myModal').modal('hide');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro ao concluir a venda:", status, error);
+                        alert("Erro ao concluir a venda.");
+                    }
+                });
+            });
         });
+
+        function mostrarDetalhesVenda() {
+            var valorTotal = 0;
+            $('#tbItens tbody tr').each(function () {
+                var valorTotalCelula = $(this).find('td').eq(4).text(); // Índice da coluna Valor Total
+                valorTotal += parseFloat(valorTotalCelula) || 0;
+            });
+            $('#txtTotalValue').val(valorTotal.toFixed(2));
+            $('#myModal').modal('show');
+        }
+
+        function carregarFormasPagamento() {
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                url: '@Url.Action("ObterFormasPagamento", "Venda")',
+                success: function (response) {
+                    if (response.sucesso) {
+                        var select = $('#ddlPaymentMethod');
+                        select.empty();
+                        $.each(response.formasPagamento, function (index, pagamento) {
+                            select.append($('<option></option>').val(pagamento.id).text(pagamento.nome));
+                        });
+                    } else {
+                        alert(response.mensagem);
+                    }
+                },
+                error: function () {
+                    alert("Erro ao buscar formas de pagamento.");
+                }
+            });
+        }
+
+        function atualizarValorFinal() {
+            var total = parseFloat($('#txtTotalValue').val()) || 0;
+            var desconto = parseFloat($('#txtDiscount').val()) || 0;
+            var valorFinal = total - (total * (desconto / 100));
+            $('#txtFinalValue').val(valorFinal.toFixed(2));
+        }
 
         function FecharVenda() {
             var VendaId = $("#txtVendaI").val();
@@ -60,13 +147,13 @@
             var Quantidade = parseInt($("#txtQuantidadeProduto").val());
             var TotalProdutos = (ProdutoValor * Quantidade).toFixed(2);
 
-            var Item = {}         
+            var Item = {}
             Item.Venda = VendaId;
             Item.Produto = ProdutoId;
             Item.Quantidade = Quantidade;
             Item.ValorProduto = ProdutoValor;
             Item.ValorTotalProdutos = TotalProdutos;
-         
+
 
             $.ajax({
                 async: true,
@@ -250,3 +337,42 @@
     </fieldset>
 </body>
 </html>
+
+<div id="divPagamento" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Pagamento</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            Forma de Pagamento:
+                            <input style="text-align:right" type="text" id="ddlPaymentMethod" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-md-6">
+                            Total:
+                            <input style="text-align:right" type="text" id="txtTotalValue" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            ValorFinal:
+                            <input style="text-align:right" type="number" id="txtFinalValue" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            Desconto:
+                            <input style="text-align:right" type="number" id="txtDiscount" class="form-control" value="0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnIncluirPagamento" value="Adicionar">Adicionar</button>
+                <button class="btn btn-danger" id="btnClose" data-dismiss="modal" value="close">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
