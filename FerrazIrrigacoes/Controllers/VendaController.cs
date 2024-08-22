@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
 using FerrazIrrigacoes.Repositorio;
-using static System.Net.WebRequestMethods;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -23,6 +21,7 @@ namespace FerrazIrrigacoes.Controllers
             return View(venda.ToList());
         }
 
+        [HttpGet]
         public JsonResult GerarNovaVenda()
         {
             VendaRepositorio objGerar = new VendaRepositorio();
@@ -30,36 +29,59 @@ namespace FerrazIrrigacoes.Controllers
             return Json(Id, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InserirItem(ItensVenda objdados) { 
+        [HttpPost]
+        public JsonResult InserirItem(ItensVenda objdados)
+        {
             VendaItensRepositorio objgravar = new VendaItensRepositorio();
             objgravar.InserirItem(objdados);
 
-            return Json("Ok", JsonRequestBehavior.AllowGet);
+            return Json(new { sucesso = true, mensagem = "Item inserido com sucesso" });
         }
 
-        public void FecharVenda(Venda objdados)
+        [HttpPost]
+        public JsonResult FecharVenda(Venda objdados)
         {
-            objdados.Caixa = Convert.ToInt32(Session["CaixaId"]);
+            if (objdados == null)
+            {
+                return Json(new { sucesso = false, mensagem = "Dados da venda não foram fornecidos." });
+            }
+            try
+            {
+                // Atribui o ID do Caixa a partir da sessão
+                objdados.Caixa = Convert.ToInt32(Session["CaixaId"]);
+                objdados.DataVenda = DateTime.Now;
 
-            VendaRepositorio objFechar = new VendaRepositorio();
-            objFechar.FecharVenda(objdados);
-            var Cliente = db.Cliente.Where(r => r.Id.Equals(objdados.ClienteId)).FirstOrDefaultAsync();
+                // Atualiza o registro da venda
+                VendaRepositorio objFechar = new VendaRepositorio();
+                objFechar.FecharVenda(objdados);
 
-            Lancamento obllancamento = new Lancamento();
-            obllancamento.Venda = objdados.Id;
-            obllancamento.Valor = objdados.Valor;
-            obllancamento.Data = DateTime.Now;
-            obllancamento.CaixaId = objdados.Caixa;
-            obllancamento.Movimento = "C";
+                // Obtém informações do cliente
+                var cliente = db.Cliente.SingleOrDefault(c => c.Id == objdados.ClienteId);
 
-            //
-            //return Json(data: "Venda realizada com sucesso!", JsonRequestBehavior.AllowGet);
-            db.Lancamento.Add(obllancamento);
-            db.SaveChanges();
+                // Cria um lançamento financeiro
+                Lancamento obllancamento = new Lancamento
+                {
+                    Venda = objdados.Id,
+                    Valor = objdados.Valor,
+                    Data = DateTime.Now,
+                    CaixaId = objdados.Caixa,
+                    Movimento = "C"
+                };
 
+                // Adiciona o lançamento ao banco de dados
+                db.Lancamento.Add(obllancamento);
+                db.SaveChanges();
+
+                return Json(new { sucesso = true, mensagem = "Venda concluída com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { sucesso = false, mensagem = $"Erro ao concluir a venda: {ex.Message}" });
+            }
         }
 
-        public JsonResult ObterFormasPagamentos()
+        [HttpGet]
+        public JsonResult ObterFormasPagamento()
         {
             var formasPagamento = db.FormaDePagamento.ToList();
             var result = new
@@ -75,7 +97,7 @@ namespace FerrazIrrigacoes.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Venda/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -92,16 +114,12 @@ namespace FerrazIrrigacoes.Controllers
 
         public ActionResult Lancar()
         {
-            //Passar os valores para a tela
             ViewBag.Cliente = new SelectList(db.Cliente, "Id", "Nome");
-
-            //Passar os dados
             ViewBag.Produto = new SelectList(db.Produto, "Id", "Nome");
-
             return View();
         }
 
-        // GET: Venda/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.Caixa = new SelectList(db.Caixa, "Id", "Id");
@@ -110,9 +128,6 @@ namespace FerrazIrrigacoes.Controllers
             return View();
         }
 
-        // POST: Venda/Create
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,DataVenda,Valor,Caixa,FormaDePagamento,MaodeObra,Desconto,ClienteId")] Venda venda)
@@ -130,7 +145,7 @@ namespace FerrazIrrigacoes.Controllers
             return View(venda);
         }
 
-        // GET: Venda/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -148,9 +163,6 @@ namespace FerrazIrrigacoes.Controllers
             return View(venda);
         }
 
-        // POST: Venda/Edit/5
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,DataVenda,Valor,Caixa,FormaDePagamento,MaodeObra,Desconto,ClienteId")] Venda venda)
@@ -167,7 +179,7 @@ namespace FerrazIrrigacoes.Controllers
             return View(venda);
         }
 
-        // GET: Venda/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -182,7 +194,6 @@ namespace FerrazIrrigacoes.Controllers
             return View(venda);
         }
 
-        // POST: Venda/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -201,6 +212,23 @@ namespace FerrazIrrigacoes.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public JsonResult IncluirPagamento(Lancamento lancamento)
+        {
+            try
+            {
+                // Adiciona o lançamento ao banco de dados
+                db.Lancamento.Add(lancamento);
+                db.SaveChanges();
+
+                return Json(new { sucesso = true, mensagem = "Pagamento incluído com sucesso!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { sucesso = false, mensagem = "Erro ao incluir pagamento: " + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpGet]
         public JsonResult BuscarValor(int id)
         {
