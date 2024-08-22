@@ -47,13 +47,22 @@ namespace FerrazIrrigacoes.Controllers
             }
             try
             {
-                // Atribui o ID do Caixa a partir da sessão
-                objdados.Caixa = Convert.ToInt32(Session["CaixaId"]);
-                objdados.DataVenda = DateTime.Now;
 
-                // Atualiza o registro da venda
-                VendaRepositorio objFechar = new VendaRepositorio();
-                objFechar.FecharVenda(objdados);
+                Venda objfecha = db.Venda.Find(objdados.Id);    
+
+                objfecha.Valor = objdados.Valor;
+                objdados.Caixa = objdados.Caixa;
+                objdados.DataVenda = DateTime.Now;
+                objfecha.ClienteId = objdados.ClienteId;
+                objfecha.Valor = objdados.Valor;
+                objfecha.Desconto = objdados.Desconto;
+                objfecha.MaodeObra = objdados.MaodeObra;
+                //passa os campos
+
+
+                db.Entry(objfecha).State = EntityState.Modified;
+                db.SaveChanges();
+
 
                 // Obtém informações do cliente
                 var cliente = db.Cliente.SingleOrDefault(c => c.Id == objdados.ClienteId);
@@ -65,7 +74,8 @@ namespace FerrazIrrigacoes.Controllers
                     Valor = objdados.Valor,
                     Data = DateTime.Now,
                     CaixaId = objdados.Caixa,
-                    Movimento = "C"
+                    Movimento = "C",
+                    Descricao = "Venda para o cliente: " + cliente.Nome
                 };
 
                 // Adiciona o lançamento ao banco de dados
