@@ -16,12 +16,24 @@
                 FecharVenda();
             });
 
-            // Evento para buscar o valor do produto quando o produto é selecionado
             $("#Produto").val(1);
             $("#Produto").change(function () {
                 var ProdutoId = $("#Produto").val();
                 BuscarValor(ProdutoId);
-            })
+            })           
+
+            // Define a data e hora atuais no formato ISO para o campo "Data Venda"
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // Mês é zero-indexado
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            const formattedDate = `${day}/${month}/${year}`;
+            const formattHour = `${hours}:${minutes}`;
+            $("#txtVenda").val(formattedDate);
+            $("#txtHora").val(formattHour);
 
              // Display modal
             $("#btnShowModal").click(function () {
@@ -29,40 +41,42 @@
                 carregarFormasPagamento();
             });
 
-            // Update final value on discount change
             $("#txtDiscount").on('input', function () {
                 atualizarValorFinal();
             });
 
-            // Close the modal
             $(".close").click(function () {
-                $('#myModal').modal('hide');
+                $('#divPagamento').modal('hide');
             });
 
             $(window).click(function (event) {
-                if ($(event.target).is('#myModal')) {
-                    $('#myModal').modal('hide');
+                if ($(event.target).is('#divPagamento')) {
+                    $('#divPagamento').modal('hide');
                 }
             });
 
             $("#btnSubmit").click(function () {
-                var vendaFinal = {
-                    total: $('#txtTotalValue').val(),
-                    pagamento: $('#ddlPaymentMethod').val(),
-                    desconto: $('#txtDiscount').val(),
-                    valorFinal: $('#txtFinalValue').val()
-                };
+                var vendaFinal = {}
 
+                //Mudar o nome dos botoes
+                vendaFinal.Id = $('#txtVendaI').val();
+                vendaFinal.FormaDePagamento = $('#ddlPaymentMethod').val();
+                vendaFinal.Valor = $('txtFinalValue').val();
+                vendaFinal.Desconto = $('#txtDiscount').val();
+                vendaFinal.DataVenda = $('#txtVenda').val();
+                vendaFinal.ClienteId = $('#txtCliente').val();
+                
+                
                 $.ajax({
                     async: true,
                     type: 'POST',
                     dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(vendaFinal),
-                    url: '@Url.Action("ConcluirVenda", "Venda")',
+                    url: '@Url.Action("FecharVenda", "Venda")',
                     success: function () {
                         alert("Venda concluída com sucesso!");
-                        $('#myModal').modal('hide');
+                        $('#divPagamento').modal('hide');
                     },
                     error: function (xhr, status, error) {
                         console.error("Erro ao concluir a venda:", status, error);
@@ -71,7 +85,7 @@
                 });
             });
         });
-
+        
         function mostrarDetalhesVenda() {
             var valorTotal = 0;
             $('#tbItens tbody tr').each(function () {
@@ -79,7 +93,8 @@
                 valorTotal += parseFloat(valorTotalCelula) || 0;
             });
             $('#txtTotalValue').val(valorTotal.toFixed(2));
-            $('#myModal').modal('show');
+            $('#divPagamento').attr('tabindex', "0");
+            $('#divPagamento').modal('show');
         }
 
         function carregarFormasPagamento() {
@@ -116,6 +131,16 @@
         function FecharVenda() {
             var VendaId = $("#txtVendaI").val();
             var ClienteId = $("#Cliente").val();
+
+            if (!VendaId || VendaId == "0") {
+                alert("Venda não foi gerada. Por favor, crie uma nova venda.");
+                return;
+            }
+
+            if (!ClienteId || ClienteId == "0") {
+                alert("Por favor, selecione um cliente.");
+                return;
+            }
 
             var Venda = {
                 Id: VendaId,
@@ -335,11 +360,9 @@
             </tbody>
         </table>
     </fieldset>
-</body>
-</html>
 
-<div id="divPagamento" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div id="divPagamento" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -376,3 +399,6 @@
         </div>
     </div>
 </div>
+
+</body>
+</html>

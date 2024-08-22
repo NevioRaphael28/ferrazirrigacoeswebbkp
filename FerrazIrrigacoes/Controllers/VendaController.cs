@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
 using FerrazIrrigacoes.Repositorio;
+using static System.Net.WebRequestMethods;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -29,17 +30,49 @@ namespace FerrazIrrigacoes.Controllers
             return Json(Id, JsonRequestBehavior.AllowGet);
         }
 
-        public void InserirItem(ItensVenda objdados) { 
+        public JsonResult InserirItem(ItensVenda objdados) { 
             VendaItensRepositorio objgravar = new VendaItensRepositorio();
             objgravar.InserirItem(objdados);
+
+            return Json("Ok", JsonRequestBehavior.AllowGet);
         }
 
         public void FecharVenda(Venda objdados)
         {
+            objdados.Caixa = Convert.ToInt32(Session["CaixaId"]);
+
             VendaRepositorio objFechar = new VendaRepositorio();
             objFechar.FecharVenda(objdados);
-           //
-           //return Json(data: "Venda realizada com sucesso!", JsonRequestBehavior.AllowGet);
+            var Cliente = db.Cliente.Where(r => r.Id.Equals(objdados.ClienteId)).FirstOrDefaultAsync();
+
+            Lancamento obllancamento = new Lancamento();
+            obllancamento.Venda = objdados.Id;
+            obllancamento.Valor = objdados.Valor;
+            obllancamento.Data = DateTime.Now;
+            obllancamento.CaixaId = objdados.Caixa;
+            obllancamento.Movimento = "C";
+
+            //
+            //return Json(data: "Venda realizada com sucesso!", JsonRequestBehavior.AllowGet);
+            db.Lancamento.Add(obllancamento);
+            db.SaveChanges();
+
+        }
+
+        public JsonResult ObterFormasPagamentos()
+        {
+            var formasPagamento = db.FormaDePagamento.ToList();
+            var result = new
+            {
+                sucesso = true,
+                formasPagamento = formasPagamento.Select(fp => new
+                {
+                    id = fp.Id,
+                    nome = fp.Descricao
+                }).ToList(),
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Venda/Details/5

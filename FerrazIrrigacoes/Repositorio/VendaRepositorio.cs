@@ -32,7 +32,5 @@ namespace FerrazIrrigacoes.Repositorio
             db.Entry(objdados).State = EntityState.Modified;
             db.SaveChanges();
         }
-
-
     }
 }

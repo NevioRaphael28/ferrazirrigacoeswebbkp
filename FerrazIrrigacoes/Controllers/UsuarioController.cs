@@ -21,6 +21,8 @@ namespace FerrazIrrigacoes.Controllers
             {
                 return RedirectToAction("Login", "Usuario", null);
             }
+
+
             return View(db.Usuario.ToList());
         }
 
@@ -145,6 +147,16 @@ namespace FerrazIrrigacoes.Controllers
 
                 if (dados != null)
                 {
+                    var caixa = db.Caixa.Where(c => c.DataFechamento.Equals(null)).FirstOrDefault();
+                    if(caixa != null)
+                    {
+                        Session["CaixaId"] = caixa.Id;
+                    }
+                    else
+                    {
+                        Session["CaixaId"] = "0";
+                    }
+
                     Session["Usuarioid"] = usuario.Email;
                     Session["Senhaid"] = usuario.Senha;
                     return RedirectToAction("Index", "Home", null);
