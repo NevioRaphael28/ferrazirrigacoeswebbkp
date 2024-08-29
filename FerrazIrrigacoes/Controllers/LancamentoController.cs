@@ -25,7 +25,7 @@ namespace FerrazIrrigacoes.Controllers
             }
 
             var contexto = new sakitadbEntities();
-            var listaLancamento = contexto.Lancamento.ToList();
+            var listaLancamento = contexto.Lancamento.OrderByDescending(x => x.Id).ToList();
             int paginaTamanho = 10;
             int paginaLancamento = (pagina ?? 1);
 

@@ -51,14 +51,15 @@
                 if ($(event.target).is('#divPagamento')) {
                     $('#divPagamento').modal('hide');
                 }
+            });
 
-                $("#btnSubmit").click(function () {
+                @*$("#btnSubmit").click(function () {
                     var vendaFinal = {}
 
                     //Mudar o nome dos botoes
                     vendaFinal.Id = $('#txtVendaI').val();
                     vendaFinal.FormaDePagamento = $('#ddlPaymentMethod').val();
-                    vendaFinal.Valor = $('txtFinalValue').val();
+                    vendaFinal.Valor = parseFloat($('#txtFinalValue').val());
                     vendaFinal.Desconto = $('#txtDiscount').val();
                     vendaFinal.MaoDeObra = $('#txtMaoDeObra').val();
                     vendaFinal.DataVenda = $('#txtVenda').val();
@@ -81,15 +82,15 @@
                             alert("Erro ao concluir a venda.");
                         }
                     });
-                });
+                });*@
 
                 $('#btnIncluirPagamento').click(function () {
-                    var vendaId = parseInt($("#txtVendaI").val());
+                    var vendaId = parseInt($('#txtVendaI').val());
                     var clienteId = $('#Cliente').val();
                     var formaPagamentoId = $('#FormaPagamento').val();
-                    var valor = parseFloat($("#txtTotalValue").val());
+                    var valor = parseFloat($('#txtTotalValue').val());
                     var desconto = $('#txtDiscount').val();
-                    var maoDeObra = $("#txtMaoDeObra").val();
+                    var maoDeObra = $('#txtMaoDeObra').val();
 
                     var venda = {}
                     venda.Id = vendaId;
@@ -117,7 +118,7 @@
                         }
                     });
                 });
-            });
+            
         });
 
         function mostrarDetalhesVenda() {
@@ -182,8 +183,6 @@
             }
             carregarFormasPagamento();
             mostrarDetalhesVenda();
-
-
 
         }
 

@@ -17,7 +17,7 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Venda
         public ActionResult Index()
         {
-            var venda = db.Venda.Include(v => v.Caixa1).Include(v => v.Cliente).Include(v => v.FormaDePagamento1);
+            var venda = db.Venda.Include(v => v.Caixa1).Include(v => v.Cliente).Include(v => v.FormaDePagamento1).OrderByDescending(v => v.Id);
             return View(venda.ToList());
         }
 
