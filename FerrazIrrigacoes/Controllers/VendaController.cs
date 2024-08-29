@@ -47,25 +47,31 @@ namespace FerrazIrrigacoes.Controllers
             }
             try
             {
+                Venda objfecha = db.Venda.Find(objdados.Id);
 
-                Venda objfecha = db.Venda.Find(objdados.Id);    
+                if (objfecha == null)
+                {
+                    return Json(new { sucesso = false, mensagem = "Venda não encontrada." });
+                }
 
+                // Atualiza os campos necessários
                 objfecha.Valor = objdados.Valor;
-                objdados.Caixa = objdados.Caixa;
-                objdados.DataVenda = DateTime.Now;
+                objfecha.Caixa = objdados.Caixa;
+                objfecha.DataVenda = DateTime.Now;
                 objfecha.ClienteId = objdados.ClienteId;
-                objfecha.Valor = objdados.Valor;
                 objfecha.Desconto = objdados.Desconto;
                 objfecha.MaodeObra = objdados.MaodeObra;
-                //passa os campos
-
 
                 db.Entry(objfecha).State = EntityState.Modified;
                 db.SaveChanges();
 
-
                 // Obtém informações do cliente
                 var cliente = db.Cliente.SingleOrDefault(c => c.Id == objdados.ClienteId);
+
+                if (cliente == null)
+                {
+                    return Json(new { sucesso = false, mensagem = "Cliente não encontrado." });
+                }
 
                 // Cria um lançamento financeiro
                 Lancamento obllancamento = new Lancamento
