@@ -18,8 +18,8 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Caixa
         public ActionResult Index()
         {
-            var caixa = db.Caixa.Include(c => c.Usuario1);
-            return View(caixa.ToList());
+            var caixas = db.Caixa.ToList();
+            return View(caixas);
         }
 
         // GET: Caixa/Details/5
@@ -36,19 +36,17 @@ namespace FerrazIrrigacoes.Controllers
             }
             return View(caixa);
         }
+
         // GET: Caixa/Create
         public ActionResult Create()
         {
-            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email");
             return View();
         }
 
         // POST: Caixa/Create
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento,Usuario")] Caixa caixa)
+        public ActionResult Create([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento")] Caixa caixa)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace FerrazIrrigacoes.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
@@ -73,16 +70,13 @@ namespace FerrazIrrigacoes.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
         // POST: Caixa/Edit/5
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento,Usuario")] Caixa caixa)
+        public ActionResult Edit([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento")] Caixa caixa)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +84,6 @@ namespace FerrazIrrigacoes.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
@@ -118,6 +111,57 @@ namespace FerrazIrrigacoes.Controllers
             db.Caixa.Remove(caixa);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult AbrirCaixa(DateTime dataAbertura, double valorAbertura)
+        {
+            try
+            {
+                var caixaAberto = db.Caixa.FirstOrDefault(c => c.DataFechamento == null);
+                if (caixaAberto != null)
+                {
+                    return Json(new { success = false, message = "Já existe um caixa aberto." });
+                }
+
+                Caixa caixa = new Caixa
+                {
+                    DataAbertura = dataAbertura,
+                    TotalInicial = (decimal?)valorAbertura
+                };
+
+                db.Caixa.Add(caixa);
+                db.SaveChanges();
+
+                return Json(new { success = true, message = "Caixa aberto com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Erro ao abrir o caixa: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult FecharCaixa(int id, DateTime dataFechamento, double valorFechamento)
+        {
+            try
+            {
+                var caixa = db.Caixa.FirstOrDefault(c => c.Id == id && c.DataFechamento == null);
+                if (caixa == null)
+                {
+                    return Json(new { success = false, message = "Nenhum caixa aberto encontrado." });
+                }
+
+                caixa.DataFechamento = dataFechamento;
+                caixa.TotalFinal = (decimal?)valorFechamento;
+                db.SaveChanges();
+
+                return Json(new { success = true, message = "Caixa fechado com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Erro ao fechar o caixa: " + ex.Message });
+            }
         }
 
         protected override void Dispose(bool disposing)

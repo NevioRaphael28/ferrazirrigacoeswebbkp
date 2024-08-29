@@ -9,6 +9,158 @@
     </section>
 
     <div class="row">
-       
+
     </div>
 </main>
+
+<html>
+<head>
+    <title>Caixa</title>
+    <script src="~/Scripts/jquery-3.7.0.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnAbrirCaixa").click(function () {
+                AbrirCaixa();
+            });
+
+            $("#btnFecharCaixa").click(function () {
+                FecharCaixa();
+            });
+
+            // Preenche a data e hora atuais no formato ISO
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            const formattedDate = `${day}/${month}/${year}`;
+            const formattedHour = `${hours}:${minutes}`;
+
+            $("#txtDataAbertura").val(formattedDate);
+            $("#txtHoraAbertura").val(formattedHour);
+
+            function AbrirCaixa() {
+                var caixa = {
+                    DataAbertura: $("#txtDataAbertura").val(),
+                    ValorAbertura: $("#txtValorAbertura").val()
+                };
+
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(caixa),
+                    url: '/Caixa/AbrirCaixa',
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro ao abrir o caixa:", status, error);
+                        alert("Erro ao abrir o caixa.");
+                    }
+                });
+            }
+
+            function PreencherDataHoraFechamento() {
+                const now = new Date();
+                const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+                const formattedHour = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+                $("#txtDataFechamento").val(formattedDate);
+                $("#txtHoraFechamento").val(formattedHour);
+            }
+
+            function FecharCaixa() {
+                var caixa = {
+                    DataFechamento: $("#txtDataFechamento").val(),
+                    ValorFechamento: $("#txtValorFechamento").val()
+                };
+
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(caixa),
+                    url: '/Caixa/FecharCaixa',
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro ao fechar o caixa:", status, error);
+                        alert("Erro ao fechar o caixa.");
+                    }
+                });
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>Caixa</legend>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Data de Abertura:
+                        <input type="text" id="txtDataAbertura" name="DataAbertura" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Hora de Abertura:
+                        <input type="text" id="txtHoraAbertura" name="HoraAbertura" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Valor de Abertura:
+                        <input type="number" id="txtValorAbertura" name="ValorAbertura" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        Data de Fechamento:
+                        <input type="text" id="txtDataFechamento" name="DataFechamento" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        Hora de Fechamento:
+                        <input type="text" id="txtHoraFechamento" name="HoraFechamento" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="button" value="Abrir Caixa" id="btnAbrirCaixa" class="btn btn-success" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="button" value="Fechar Caixa" id="btnFecharCaixa" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</body>
+</html>
