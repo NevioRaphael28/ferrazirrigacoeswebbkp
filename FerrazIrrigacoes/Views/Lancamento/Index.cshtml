@@ -31,6 +31,9 @@
                 @Html.DisplayName("Descrição");
             </th>
             <th>
+                @Html.DisplayName("Mão de Obra");
+            </th>
+            <th>
                 @Html.DisplayName("Data");
             </th>
             <th>
@@ -76,6 +79,7 @@
     }
 </table>
 
+
 <div style="text-align: center;">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
     of @Model.PageCount
@@ -110,4 +114,4 @@
             @Html.Raw(" ");
             @Html.ActionLink(">>", "Index", new { pagina = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
         *@}
-</div>
+    </div>

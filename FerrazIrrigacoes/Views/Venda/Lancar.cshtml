@@ -8,7 +8,6 @@
             $("#btnNovaVenda").click(function () {
                 GerarNovaVenda(0);
             });
-
             $("#btnAddToList").click(function () {
                 AdicionarProduto();
             });
@@ -61,6 +60,7 @@
                     vendaFinal.FormaDePagamento = $('#ddlPaymentMethod').val();
                     vendaFinal.Valor = $('txtFinalValue').val();
                     vendaFinal.Desconto = $('#txtDiscount').val();
+                    vendaFinal.MaoDeObra = $('#txtMaoDeObra').val();
                     vendaFinal.DataVenda = $('#txtVenda').val();
                     vendaFinal.ClienteId = $('#txtCliente').val();
 
@@ -89,7 +89,7 @@
                     var formaPagamentoId = $('#FormaPagamento').val();
                     var valor = parseFloat($("#txtTotalValue").val());
                     var desconto = $('#txtDiscount').val();
-                    var maoDeObra = parseFloat($("#MaoDeObra").val());
+                    var maoDeObra = $("#txtMaoDeObra").val();
 
                     var venda = {}
                     venda.Id = vendaId;
@@ -97,7 +97,7 @@
                     venda.FormaDePagamento = formaPagamentoId;
                     venda.Valor = valor;
                     venda.Desconto = desconto;
-                    venda.MaodeObra = maoDeObra;
+                    venda.MaoDeObra = maoDeObra;
 
 
                     $.ajax({
@@ -107,7 +107,7 @@
                         success: function (data) {
                             if (data.sucesso) {
                                 alert(data.mensagem);
-                                window.location.href = '/Venda/Index'; // Redireciona para a lista de vendas
+                                window.location.href = '/Lancamento/Index'; // Redireciona para a lista de vendas
                             } else {
                                 alert('Erro: ' + data.mensagem);
                             }
@@ -158,7 +158,12 @@
         function atualizarValorFinal() {
             var total = parseFloat($('#txtTotalValue').val()) || 0;
             var desconto = parseFloat($('#txtDiscount').val()) || 0;
-            var valorFinal = total - (total * (desconto / 100));
+            var maoDeObra = total * 0.4;
+
+            $('#txtMaoDeObra').val(maoDeObra.toFixed(2));
+
+            var valorComMaoDeObra = total + maoDeObra;
+            var valorFinal = valorComMaoDeObra - (valorComMaoDeObra * (desconto / 100));
             $('#txtFinalValue').val(valorFinal.toFixed(2));
         }
 
@@ -175,34 +180,12 @@
                 alert("Por favor, selecione um cliente.");
                 return;
             }
-
-            //var Venda = {}
-        
-            //Venda.Id = VendaId;
-            //Venda.ClienteId = ClienteId;
             carregarFormasPagamento();
             mostrarDetalhesVenda();
 
-            //$.ajax({
-            //    async: true,
-            //    type: 'POST',
-            //    dataType: 'JSON',
-            //    contentType: 'application/json; charset=utf-8',
-            //    data: JSON.stringify(Venda),
-            //    url: '/Venda/FecharVenda',
-            //    success: function () {
-            //        alert("Venda fechada com sucesso!");
-            //     // Mostrar o modal de pagamento após o fechamento da venda
-            //        carregarFormasPagamento(); // Carregar formas de pagamento ao exibir o modal
-            //    },
-            //    error: function (xhr, status, error) {
-            //        console.error("Erro ao fechar a venda:", status, error);
-            //        alert("Erro ao fechar a venda.");
-            //    }
-            //});
+
+
         }
-
-
 
         function AdicionarProduto() {
             var VendaId = $("#txtVendaI").val();
@@ -282,7 +265,6 @@
                 }
             });
         }
-
 
         function GerarNovaVenda(Id) {
             $.ajax({
@@ -423,6 +405,10 @@
                         <div>
                             <label>Desconto (%):</label>
                             <input type="text" id="txtDiscount" onkeyup="atualizarValorFinal()" />
+                        </div>
+                        <div>
+                            <label>Mão de Obra (40%):</label>
+                            <input type="text" id="txtMaoDeObra" readonly />
                         </div>
                         <div>
                             <label>Valor Final:</label>
