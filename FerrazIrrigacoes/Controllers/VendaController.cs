@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
 using FerrazIrrigacoes.Repositorio;
 using Microsoft.Ajax.Utilities;
+using PagedList;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -16,10 +17,16 @@ namespace FerrazIrrigacoes.Controllers
         private sakitadbEntities db = new sakitadbEntities();
 
         // GET: Venda
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
+            var contexto = new sakitadbEntities();
+            var listaVenda = contexto.Venda.OrderByDescending(x => x.Id).ToList();
+            int paginaTamanho = 10;
+            int paginaVenda = (pagina ?? 1);
+
+
             var venda = db.Venda.Include(v => v.Caixa1).Include(v => v.Cliente).Include(v => v.FormaDePagamento1).OrderByDescending(v => v.Id);
-            return View(venda.ToList());
+            return View(venda.ToPagedList(paginaVenda, paginaTamanho));
         }
 
         [HttpGet]
