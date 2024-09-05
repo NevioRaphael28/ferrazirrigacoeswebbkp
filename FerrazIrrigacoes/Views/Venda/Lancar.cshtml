@@ -77,7 +77,7 @@
                         success: function (data) {
                             if (data.sucesso) {
                                 alert(data.mensagem);
-                                window.location.href = '/Lancamento/Index'; // Redireciona para a lista de vendas
+                                window.location.href = '/Venda/Index'; // Redireciona para a lista de vendas
                             } else {
                                 alert('Erro: ' + data.mensagem);
                             }
@@ -128,24 +128,24 @@
         function atualizarValorFinal() {
             var total = parseFloat($('#txtTotalValue').val()) || 0;
             var desconto = parseFloat($('#txtDiscount').val()) || 0;
-            var maoDeObra;
-            
-            if (desconto != 0)
-            { 
-                maoDeObra = parseFloat(total) * parseFloat(0.4);
+            var valorComDesconto;
+
+            // Calcula o valor com desconto
+            if (desconto == 0) {
+                valorComDesconto = total; // Sem desconto
+            } else {
+                valorComDesconto = total - (total * (desconto / 100)); // Com desconto
             }
-            else { 
-                total = total - (total * (desconto / 100));
-                maoDeObra = parseFloat(total)  * parseFloat(0.4);            
-            }            
-            
 
-            $('#txtMaoDeObra').val(parseFloat(maoDeObra.toFixed(2)));
+            // Calcula mão de obra como 40% do valor com desconto
+            var maoDeObra = valorComDesconto * 0.4;
 
-            var valorComMaoDeObra = parseFloat(total) + parseFloat(maoDeObra);
-            var valorFinal = parseFloat(parseFloat(valorComMaoDeObra) - (parseFloat(valorComMaoDeObra) * (parseFloat(desconto) / 100)));
+            // Calcula o total final somando o valor com desconto e a mão de obra
+            var totalFinal = maoDeObra + valorComDesconto;
 
-            $('#txtFinalValue').val(parseFloat(valorFinal.toFixed(2)));
+            // Atualiza os campos de texto
+            $('#txtMaoDeObra').val(maoDeObra.toFixed(2));
+            $('#txtFinalValue').val(totalFinal.toFixed(2));
         }
 
         function FecharVenda() {
