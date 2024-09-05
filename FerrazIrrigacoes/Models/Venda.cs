@@ -10,8 +10,9 @@
 namespace FerrazIrrigacoes.Models
 {
     using System;
-    using System.Collections.Generic;
-    
+    using System.Collections.Generic;    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Venda
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace FerrazIrrigacoes.Models
     
         public int Id { get; set; }
         public Nullable<System.DateTime> DataVenda { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
         public Nullable<decimal> Valor { get; set; }
         public Nullable<int> Caixa { get; set; }
         public Nullable<int> FormaDePagamento { get; set; }

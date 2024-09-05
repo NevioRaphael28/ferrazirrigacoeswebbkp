@@ -51,52 +51,21 @@
                 if ($(event.target).is('#divPagamento')) {
                     $('#divPagamento').modal('hide');
                 }
-            });
-
-                @*$("#btnSubmit").click(function () {
-                    var vendaFinal = {}
-
-                    //Mudar o nome dos botoes
-                    vendaFinal.Id = $('#txtVendaI').val();
-                    vendaFinal.FormaDePagamento = $('#ddlPaymentMethod').val();
-                    vendaFinal.Valor = parseFloat($('#txtFinalValue').val());
-                    vendaFinal.Desconto = $('#txtDiscount').val();
-                    vendaFinal.MaoDeObra = $('#txtMaoDeObra').val();
-                    vendaFinal.DataVenda = $('#txtVenda').val();
-                    vendaFinal.ClienteId = $('#txtCliente').val();
-
-
-                    $.ajax({
-                        async: true,
-                        type: 'POST',
-                        dataType: 'JSON',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(vendaFinal),
-                        url: '@Url.Action("FecharVenda", "Venda")',
-                        success: function () {
-                            alert("Venda concluída com sucesso!");
-                            $('#divPagamento').modal('hide');
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Erro ao concluir a venda:", status, error);
-                            alert("Erro ao concluir a venda.");
-                        }
-                    });
-                });*@
+            });        
 
                 $('#btnIncluirPagamento').click(function () {
                     var vendaId = parseInt($('#txtVendaI').val());
                     var clienteId = $('#Cliente').val();
-                    var formaPagamentoId = $('#FormaPagamento').val();
-                    var valor = parseFloat($('#txtTotalValue').val());
-                    var desconto = $('#txtDiscount').val();
-                    var maoDeObra = $('#txtMaoDeObra').val();
+                    var formaPagamentoId = $('#ddlPaymentMethod').val();
+                    //var valor = $('#txtFinalValue').replace('.', ',').val(); //parseFloat($('#txtFinalValue').replace('.', ',').val());
+                    var desconto = parseFloat($('#txtDiscount').val());
+                    var maoDeObra = parseFloat($('#txtMaoDeObra').val());
 
                     var venda = {}
                     venda.Id = vendaId;
                     venda.ClienteId = clienteId;
                     venda.FormaDePagamento = formaPagamentoId;
-                    venda.Valor = valor;
+                    venda.Valor = $('#txtFinalValue').val();
                     venda.Desconto = desconto;
                     venda.MaoDeObra = maoDeObra;
 
@@ -159,13 +128,24 @@
         function atualizarValorFinal() {
             var total = parseFloat($('#txtTotalValue').val()) || 0;
             var desconto = parseFloat($('#txtDiscount').val()) || 0;
-            var maoDeObra = total * 0.4;
+            var maoDeObra;
+            
+            if (desconto != 0)
+            { 
+                maoDeObra = parseFloat(total) * parseFloat(0.4);
+            }
+            else { 
+                total = total - (total * (desconto / 100));
+                maoDeObra = parseFloat(total)  * parseFloat(0.4);            
+            }            
+            
 
-            $('#txtMaoDeObra').val(maoDeObra.toFixed(2));
+            $('#txtMaoDeObra').val(parseFloat(maoDeObra.toFixed(2)));
 
-            var valorComMaoDeObra = total + maoDeObra;
-            var valorFinal = valorComMaoDeObra - (valorComMaoDeObra * (desconto / 100));
-            $('#txtFinalValue').val(valorFinal.toFixed(2));
+            var valorComMaoDeObra = parseFloat(total) + parseFloat(maoDeObra);
+            var valorFinal = parseFloat(parseFloat(valorComMaoDeObra) - (parseFloat(valorComMaoDeObra) * (parseFloat(desconto) / 100)));
+
+            $('#txtFinalValue').val(parseFloat(valorFinal.toFixed(2)));
         }
 
         function FecharVenda() {

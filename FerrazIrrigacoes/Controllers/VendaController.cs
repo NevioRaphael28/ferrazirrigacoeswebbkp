@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
 using FerrazIrrigacoes.Repositorio;
+using Microsoft.Ajax.Utilities;
 
 namespace FerrazIrrigacoes.Controllers
 {
@@ -53,14 +54,30 @@ namespace FerrazIrrigacoes.Controllers
                 {
                     return Json(new { sucesso = false, mensagem = "Venda não encontrada." });
                 }
+                var Total = db.ItensVenda.Where(C => C.Venda == objdados.Id).Sum(C => C.ValorTotalProdutos);
+                decimal ValorComDesconto = 0;
+                if (objdados.Desconto == 0)
+                {
+                    ValorComDesconto = Convert.ToDecimal(Total);
+                }
+                else
+                {
+                    ValorComDesconto = Convert.ToDecimal(Total - (Total * (objdados.Desconto / 100)));
+                }
+                //decimal ValorComDesconto = Convert.ToDecimal((objdados.Desconto / 100) * Total);
+                decimal MaodeObra = Convert.ToDecimal(ValorComDesconto * Convert.ToDecimal(0.4));
+                decimal totalFinal = MaodeObra + ValorComDesconto;
+
+                //    .Select(r => new { r.Sum()  });
 
                 // Atualiza os campos necessários
-                objfecha.Valor = objdados.Valor;
+                objfecha.FormaDePagamento = objdados.FormaDePagamento;
+                objfecha.Valor = totalFinal;//objdados.Valor;
                 objfecha.Caixa = objdados.Caixa;
                 objfecha.DataVenda = DateTime.Now;
                 objfecha.ClienteId = objdados.ClienteId;
                 objfecha.Desconto = objdados.Desconto;
-                objfecha.MaodeObra = objdados.MaodeObra;
+                objfecha.MaodeObra = MaodeObra; // objdados.MaodeObra;
 
                 db.Entry(objfecha).State = EntityState.Modified;
                 db.SaveChanges();
