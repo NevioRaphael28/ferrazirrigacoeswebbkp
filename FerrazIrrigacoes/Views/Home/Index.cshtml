@@ -20,6 +20,16 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            let caixaId = null;  // Variável para armazenar o ID do caixa
+
+            // Preenche a data e hora atuais no formato ISO na abertura da página
+            const now = new Date();
+            const formattedDate = now.toISOString().split('T')[0];
+            const formattedHour = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            $("#txtDataAbertura").val(formattedDate);
+            $("#txtHoraAbertura").val(formattedHour);
+
             $("#btnAbrirCaixa").click(function () {
                 AbrirCaixa();
             });
@@ -28,24 +38,16 @@
                 FecharCaixa();
             });
 
-            // Preenche a data e hora atuais no formato ISO
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-
-            const formattedDate = `${day}/${month}/${year}`;
-            const formattedHour = `${hours}:${minutes}`;
-
-            $("#txtDataAbertura").val(formattedDate);
-            $("#txtHoraAbertura").val(formattedHour);
-
             function AbrirCaixa() {
+                var valorInicial = parseFloat($("#txtValorAbertura").val());
+
+                if (isNaN(valorInicial) || valorInicial <= 0) {
+                    alert("Por favor, insira um valor de abertura válido.");
+                    return;
+                }
+
                 var caixa = {
-                    DataAbertura: $("#txtDataAbertura").val(),
-                    ValorAbertura: $("#txtValorAbertura").val()
+                    TotalInicial: valorInicial
                 };
 
                 $.ajax({
@@ -57,21 +59,22 @@
                     url: '/Caixa/AbrirCaixa',
                     success: function (response) {
                         if (response.success) {
-                            alert(response.message);
+                            alert("Caixa Aberto com sucesso!");
+                            caixaId = response.caixaId;  // Armazena o ID do caixa retornado pelo backend
+                            window.location.reload(true);
                         } else {
                             alert(response.message);
                         }
                     },
-                    error: function (xhr, status, error) {
-                        console.error("Erro ao abrir o caixa:", status, error);
-                        alert("Erro ao abrir o caixa.");
+                    error: function () {
+                        console.error("Erro ao abrir o caixa!");
                     }
                 });
             }
 
             function PreencherDataHoraFechamento() {
                 const now = new Date();
-                const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+                const formattedDate = now.toISOString().split('T')[0];  // Formato ISO para evitar problemas
                 const formattedHour = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
                 $("#txtDataFechamento").val(formattedDate);
@@ -79,10 +82,7 @@
             }
 
             function FecharCaixa() {
-                var caixa = {
-                    DataFechamento: $("#txtDataFechamento").val(),
-                    ValorFechamento: $("#txtValorFechamento").val()
-                };
+                PreencherDataHoraFechamento();   
 
                 $.ajax({
                     async: true,
@@ -91,16 +91,12 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(caixa),
                     url: '/Caixa/FecharCaixa',
-                    success: function (response) {
-                        if (response.success) {
-                            alert(response.message);
-                        } else {
-                            alert(response.message);
-                        }
+                    success: function () {
+                        alert("Fechado com sucesso!.");
+                        window.location.reload(true);
                     },
-                    error: function (xhr, status, error) {
-                        console.error("Erro ao fechar o caixa:", status, error);
-                        alert("Erro ao fechar o caixa.");
+                    error: function () {
+                        console.error("Erro ao fechar o caixa:");
                     }
                 });
             }
@@ -112,6 +108,7 @@
     <fieldset>
         <legend>Caixa</legend>
         <div class="container">
+            @Session["UsuarioId"];
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -137,13 +134,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         Data de Fechamento:
-                        <input type="text" id="txtDataFechamento" name="DataFechamento" class="form-control" />
+                        <input type="text" id="txtDataFechamento" name="DataFechamento" class="form-control" readonly />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         Hora de Fechamento:
-                        <input type="text" id="txtHoraFechamento" name="HoraFechamento" class="form-control" />
+                        <input type="text" id="txtHoraFechamento" name="HoraFechamento" class="form-control" readonly />
                     </div>
                 </div>
             </div>

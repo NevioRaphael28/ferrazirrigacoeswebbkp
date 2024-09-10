@@ -114,54 +114,29 @@ namespace FerrazIrrigacoes.Controllers
         }
 
         [HttpPost]
-        public JsonResult AbrirCaixa(DateTime dataAbertura, double valorAbertura)
+        public JsonResult AbrirCaixa(Caixa caixa)
         {
-            try
-            {
-                var caixaAberto = db.Caixa.FirstOrDefault(c => c.DataFechamento == null);
-                if (caixaAberto != null)
-                {
-                    return Json(new { success = false, message = "Já existe um caixa aberto." });
-                }
+            caixa.Usuario = Convert.ToInt32(Session["UsuarioId"]);
+            caixa.DataAbertura = DateTime.Now;
+            db.Caixa.Add(caixa);
+            db.SaveChanges();
 
-                Caixa caixa = new Caixa
-                {
-                    DataAbertura = dataAbertura,
-                    TotalInicial = (decimal?)valorAbertura
-                };
-
-                db.Caixa.Add(caixa);
-                db.SaveChanges();
-
-                return Json(new { success = true, message = "Caixa aberto com sucesso!" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Erro ao abrir o caixa: " + ex.Message });
-            }
+            // Retorna o ID do caixa recém-aberto
+            return Json(new { success = true, message = "Caixa Aberto com sucesso!", caixaId = caixa.Id }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult FecharCaixa(int id, DateTime dataFechamento, double valorFechamento)
+        public JsonResult FecharCaixa(Caixa caixa)
         {
-            try
-            {
-                var caixa = db.Caixa.FirstOrDefault(c => c.Id == id && c.DataFechamento == null);
-                if (caixa == null)
-                {
-                    return Json(new { success = false, message = "Nenhum caixa aberto encontrado." });
-                }
+            Caixa caixaFechamento = db.Caixa.Find(Convert.ToInt32((Session["CaixaId"])));
 
-                caixa.DataFechamento = dataFechamento;
-                caixa.TotalFinal = (decimal?)valorFechamento;
-                db.SaveChanges();
+            caixaFechamento.Usuario = Convert.ToInt32(Session["UsuarioId"]);
+            caixaFechamento.TotalFinal = Convert.ToDecimal(db.CalculaCaixa(Convert.ToInt32(Session["CaixaId"])).FirstOrDefault()) + caixaFechamento.TotalInicial;
+            caixaFechamento.DataFechamento = DateTime.Now;
 
-                return Json(new { success = true, message = "Caixa fechado com sucesso!" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Erro ao fechar o caixa: " + ex.Message });
-            }
+            db.Entry(caixaFechamento).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json("Caixa Fechado", JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

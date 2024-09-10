@@ -32,6 +32,14 @@ namespace FerrazIrrigacoes.Controllers
         [HttpGet]
         public JsonResult GerarNovaVenda()
         {
+            //LINHA ABAIXO CAIXA
+            var caixaAberto = db.Caixa.FirstOrDefault(c => c.DataFechamento == null);
+            if (caixaAberto == null)
+            {
+                return Json(new { sucesso = false, mensagem = "Não há caixa aberto. Abra um caixa para realizar vendas." }, JsonRequestBehavior.AllowGet);
+            }
+            //LINHA ACIMA CAIXA
+
             VendaRepositorio objGerar = new VendaRepositorio();
             int Id = objGerar.GerarNovaVenda();
             return Json(Id, JsonRequestBehavior.AllowGet);
@@ -40,6 +48,14 @@ namespace FerrazIrrigacoes.Controllers
         [HttpPost]
         public JsonResult InserirItem(ItensVenda objdados)
         {
+            //LINHA ABAIXO CAIXA
+            var caixaAberto = db.Caixa.FirstOrDefault(c => c.DataFechamento == null);
+            if (caixaAberto == null)
+            {
+                return Json(new { sucesso = false, mensagem = "Não há caixa aberto. Abra um caixa para inserir itens." });
+            }
+            //LINHA ACIMA CAIXA
+
             VendaItensRepositorio objgravar = new VendaItensRepositorio();
             objgravar.InserirItem(objdados);
 
