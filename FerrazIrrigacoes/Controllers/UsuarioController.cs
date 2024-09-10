@@ -157,8 +157,9 @@ namespace FerrazIrrigacoes.Controllers
                         Session["CaixaId"] = "0";
                     }
 
-                    Session["Usuarioid"] = usuario.Email;
-                    Session["Senhaid"] = usuario.Senha;
+                    Session["UsuarioId"] = dados.Id;
+                    Session["Usuario"] = dados.Email;
+
                     return RedirectToAction("Index", "Home", null);
                 }
                 return RedirectToAction("Login");
