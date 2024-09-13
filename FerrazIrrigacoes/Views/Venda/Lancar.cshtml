@@ -51,7 +51,7 @@
                 if ($(event.target).is('#divPagamento')) {
                     $('#divPagamento').modal('hide');
                 }
-            });        
+            });
 
                 $('#btnIncluirPagamento').click(function () {
                     var vendaId = parseInt($('#txtVendaI').val());
@@ -87,7 +87,7 @@
                         }
                     });
                 });
-            
+
         });
 
         function mostrarDetalhesVenda() {
@@ -124,7 +124,7 @@
                 }
             });
         }
-        
+
         function atualizarValorFinal() {
             var total = parseFloat($('#txtTotalValue').val()) || 0;
             var desconto = parseFloat($('#txtDiscount').val()) || 0;
@@ -180,7 +180,7 @@
             Item.Quantidade = Quantidade;
             Item.ValorProduto = ProdutoValor;
             Item.ValorTotalProdutos = TotalProdutos;
-            
+
 
             $.ajax({
                 async: true,
@@ -286,7 +286,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         Venda:
-                        <input type="text"  id="txtVendaI" value="0" name="VendaI" class="form-control" />
+                        <input type="text" id="txtVendaI" value="0" name="VendaI" class="form-control" />
                     </div>
                 </div>
             </div>
