@@ -7,9 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FerrazIrrigacoes.Models;
-using FerrazIrrigacoes.Repositorio;
 
-namespace FerrazIrrigacoes.Controllers
+namespace ferrazIrrigacoesWeb.Controllers
 {
     public class CaixaController : Controller
     {
@@ -18,8 +17,8 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Caixa
         public ActionResult Index()
         {
-            var caixas = db.Caixa.ToList();
-            return View(caixas);
+            var caixa = db.Caixa.Include(c => c.Usuario1);
+            return View(caixa.ToList());
         }
 
         // GET: Caixa/Details/5
@@ -40,13 +39,16 @@ namespace FerrazIrrigacoes.Controllers
         // GET: Caixa/Create
         public ActionResult Create()
         {
+            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email");
             return View();
         }
 
         // POST: Caixa/Create
+        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
+        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento")] Caixa caixa)
+        public ActionResult Create([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento,Usuario")] Caixa caixa)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace FerrazIrrigacoes.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
@@ -70,13 +73,16 @@ namespace FerrazIrrigacoes.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
         // POST: Caixa/Edit/5
+        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
+        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento")] Caixa caixa)
+        public ActionResult Edit([Bind(Include = "Id,TotalFinal,TotalInicial,DataAbertura,DataFechamento,Usuario")] Caixa caixa)
         {
             if (ModelState.IsValid)
             {
@@ -84,6 +90,7 @@ namespace FerrazIrrigacoes.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Usuario = new SelectList(db.Usuario, "Id", "Email", caixa.Usuario);
             return View(caixa);
         }
 
@@ -113,32 +120,6 @@ namespace FerrazIrrigacoes.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public JsonResult AbrirCaixa(Caixa caixa)
-        {
-            caixa.Usuario = Convert.ToInt32(Session["UsuarioId"]);
-            caixa.DataAbertura = DateTime.Now;
-            db.Caixa.Add(caixa);
-            db.SaveChanges();
-
-            // Retorna o ID do caixa recém-aberto
-            return Json(new { success = true, message = "Caixa Aberto com sucesso!", caixaId = caixa.Id }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult FecharCaixa(Caixa caixa)
-        {
-            Caixa caixaFechamento = db.Caixa.Find(Convert.ToInt32((Session["CaixaId"])));
-
-            caixaFechamento.Usuario = Convert.ToInt32(Session["UsuarioId"]);
-            caixaFechamento.TotalFinal = Convert.ToDecimal(db.CalculaCaixa(Convert.ToInt32(Session["CaixaId"])).FirstOrDefault()) + caixaFechamento.TotalInicial;
-            caixaFechamento.DataFechamento = DateTime.Now;
-
-            db.Entry(caixaFechamento).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json("Caixa Fechado", JsonRequestBehavior.AllowGet);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -147,5 +128,33 @@ namespace FerrazIrrigacoes.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public JsonResult AbrirCaixa(Caixa caixa)
+        {
+            caixa.Usuario = Convert.ToInt32(Session["UsuarioId"]);
+            db.Caixa.Add(caixa);
+            caixa.DataAbertura = DateTime.Now;
+            db.SaveChanges();
+            return Json("Caixa Aberto", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult FecharCaixa(Caixa caixa)
+        {
+            Caixa CaixaFechamento = db.Caixa.Find(Convert.ToInt32((Session["CaixaId"])));
+
+            CaixaFechamento.Usuario = Convert.ToInt32(Session["UsuarioId"]);
+            CaixaFechamento.TotalFinal = Convert.ToDecimal(db.CalculaCaixa(Convert.ToInt32(Session["CaixaId"])).FirstOrDefault()) + CaixaFechamento.TotalInicial;
+            CaixaFechamento.DataFechamento = DateTime.Now;
+
+            //caixa.id = Convert.ToInt32(Session["caixaid"]);
+            //caixa.usuario_id = Convert.ToInt32(Session["id"]);
+            //caixa.valorfim =Convert.ToDecimal(db.CalculaSaldoCaixa(Convert.ToInt32(Session["caixaid"])).FirstOrDefault());
+            //caixa.fechamento = DateTime.Now;
+
+            db.Entry(CaixaFechamento).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Json("Caixa Fechado", JsonRequestBehavior.AllowGet);
+        } 
     }
 }
