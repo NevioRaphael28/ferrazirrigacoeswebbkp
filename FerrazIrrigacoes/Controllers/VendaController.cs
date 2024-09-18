@@ -96,7 +96,7 @@ namespace FerrazIrrigacoes.Controllers
                 // Atualiza os campos necessários
                 objfecha.FormaDePagamento = objdados.FormaDePagamento;
                 objfecha.Valor = totalFinal;//objdados.Valor;
-                objfecha.Caixa = objdados.Caixa;
+                objfecha.Caixa = Convert.ToInt32(Session["CaixaId"]);
                 objfecha.DataVenda = DateTime.Now;
                 objfecha.ClienteId = objdados.ClienteId;
                 objfecha.Desconto = objdados.Desconto;
@@ -117,9 +117,9 @@ namespace FerrazIrrigacoes.Controllers
                 Lancamento obllancamento = new Lancamento
                 {
                     Venda = objdados.Id,
-                    Valor = objdados.Valor,
+                    Valor = totalFinal,
                     Data = DateTime.Now,
-                    CaixaId = objdados.Caixa,
+                    CaixaId = Convert.ToInt32(Session["CaixaId"]),
                     Movimento = "C",
                     Descricao = "Venda para o cliente: " + cliente.Nome
                 };

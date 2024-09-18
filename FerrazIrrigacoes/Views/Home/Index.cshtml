@@ -46,19 +46,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="container-chart">
-                    <h2>Gráfico dos Últimos 5 Caixas Fechados</h2>
-                    <canvas id="caixaChart" width="400" height="200"></canvas>
-                </div>
-            </div><div class="col-6">
-
-            </div>
-        </div>
-
-        <!-- Adicione um elemento canvas para o gráfico -->
-
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -129,11 +116,17 @@
             }
 
             function FecharCaixa() {
+                var valorini = parseFloat($("#valor").val());
+
+                var caixa = {
+                    TotalFinal: valorini
+                };
                 $.ajax({
                     async: true,
                     type: 'POST',
                     dataType: 'JSON',
                     contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(caixa),
                     url: '/Caixa/FecharCaixa',
                     success: function () {
                         alert("Caixa fechado com sucesso!");
