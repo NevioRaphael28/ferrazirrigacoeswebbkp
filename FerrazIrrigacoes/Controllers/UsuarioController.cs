@@ -159,6 +159,9 @@ namespace FerrazIrrigacoes.Controllers
 
                     Session["UsuarioId"] = dados.Id;
                     Session["Usuario"] = dados.Email;
+                    Session["UsuarioNome"] = dados.Nome;
+                    Session["UsuarioCargo"] = dados.Cargo;
+
 
                     return RedirectToAction("Index", "Home", null);
                 }
