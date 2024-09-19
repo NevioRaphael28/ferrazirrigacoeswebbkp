@@ -39,8 +39,12 @@
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="@Url.Content("~/Venda")"><span class="fa-solid fa-store"> </span>Vendas</a> </li>
             <li><a href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-store"> </span>Nova Venda</a> </li>
+            <li><a href="@Url.Content("~/Venda")"><span class="fa-solid fa-store"> </span>Lista Vendas</a> </li>
+            <li><a href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-store"> </span>Lancamento</a> </li>
+
+
+
         </ul>
 
 
@@ -48,8 +52,8 @@
             <div class="user-profile">
                 <img src="~/resources/Usuarioboi.png" alt="Profile Image" />
                 <div class="user-detail">
-                    <h3>Usuário boi</h3>
-                    <span>Agricultor</span>
+                    <h3>@Session["UsuarioNome"]</h3>
+                    <span>@Session["UsuarioCargo"]</span>
                 </div>
             </div>
         </div>
