@@ -43,10 +43,10 @@ body {
 
         .sidebar .sidebar-header h2 {
             color: #fff;
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.00rem;
+            font-weight: 500;
             white-space: nowrap;
-            margin-left: 23px;
+            margin-left: 20px;
         }
 
 .sidebar-links h4 {
@@ -109,10 +109,10 @@ body {
             color: #fff;
             font-weight: 500;
             white-space: nowrap;
-            padding: 15px 10px; 
+            padding: 20px 22px; 
             text-decoration: none;
             transition: 0.2s ease;
-            width: 70%; /* Ocupa toda a largura do item */
+            width: 80%; /* Ocupa toda a largura do item */
             text-align: left; /* Alinha o texto à esquerda */
         }
 
