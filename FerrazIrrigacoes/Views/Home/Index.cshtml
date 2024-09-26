@@ -3,141 +3,203 @@
     var caixaId = Session["CaixaId"] as int?;
 }
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="path/to/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #637382;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container-info {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .container-caixa {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #343d46;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-login h2 {
+            margin-bottom: 20px;
+            font-size: 1.25rem;
+            color: #637382;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #btnAbrir {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        #btnFechar {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+            #btnFechar:hover, #btnAbrir:hover {
+                opacity: 0.9;
+            }
+
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="container-info">
-        <p style="font-size:20px; ">Seja Bem Vindo @Session["Usuario"]</p>
-            <div class="container-caixa">
-                <div class="form-login">
-                    <main>
-                        <section aria-labelledby="aspnetTitle">
-                            <form>
-                                <div class="form-group">
-                                    <label for="DtAberturaCaixa">Data Abertura:</label>
-                                    <input type="date" id="DtAberturaCaixa" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="DtFechamentoCaixa">Data fechamento:</label>
-                                    <input type="date" id="DtFechamentoCaixa" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtValorCaixa">Valor:</label>
-                                    <input type="number" id="valor" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                        <button type="button" id="btnFechar" class="btn btn-secondary">Fechar caixa</button>
-                                        <button type="button" id="btnAbrir" class="btn btn-primary">Abrir caixa</button>
-                                </div>
-                            </form>
-                        </section>
-                    </main>
-                </div>
-            </div>
+        <p>Seja Bem Vindo, @Session["UsuarioNome"]!</p>
+    </div>
+
+    <div class="container-caixa">
+        <div class="form-login">
+            <h2>Gerenciamento do Caixa</h2>
+            <main>
+                <section aria-labelledby="aspnetTitle">
+                    <form>
+                        <div class="form-group">
+                            <label for="DtAberturaCaixa">Data Abertura:</label>
+                            <input type="date" id="DtAberturaCaixa" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="DtFechamentoCaixa">Data Fechamento:</label>
+                            <input type="date" id="DtFechamentoCaixa" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtValorCaixa">Valor Inicial:</label>
+                            <input type="number" id="valor" class="form-control" placeholder="Digite o valor inicial" />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="btnAbrir" class="btn">Abrir Caixa</button>
+                            <button type="button" id="btnFechar" class="btn">Fechar Caixa</button>
+                        </div>
+                    </form>
+                </section>
+            </main>
         </div>
+    </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function setCurrentDate() {
+                var today = new Date().toISOString().split('T')[0];
+                $('#DtAberturaCaixa').val(today);
+                $('#DtFechamentoCaixa').val(today);
+            }
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                // Função para definir a data atual
-                function setCurrentDate() {
-                    var today = new Date().toISOString().split('T')[0];
-                    $('#DtAberturaCaixa').val(today);
-                    $('#DtFechamentoCaixa').val(today);
-                }
+            setCurrentDate();
 
-                // Chama a função para definir a data atual
-                setCurrentDate();
-
-                $("#btnAbrir").click(function () {
-                    AbrirCaixa();
-                });
-
-                $("#btnFechar").click(function () {
-                    FecharCaixa();
-                });
-
-                BuscarValor(0);
+            $("#btnAbrir").click(function () {
+                AbrirCaixa();
             });
 
-            function BuscarValor(produtoId) {
-                $.ajax({
-                    async: true,
-                    type: 'GET',
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: { id: produtoId },
-                    url: '/Home/BuscaSaldoCaixa',
-                    success: function (response) {
-                        if (response.sucesso) {
-                            $("#valor").val(parseFloat(response.valor).toFixed(2));
-                        } else {
-                            alert(response.mensagem);
-                        }
-                    },
-                    error: function () {
-                        alert("Erro ao buscar o valor do produto.");
+            $("#btnFechar").click(function () {
+                FecharCaixa();
+            });
+
+            BuscarValor(0);
+        });
+
+        function BuscarValor(produtoId) {
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: { id: produtoId },
+                url: '/Home/BuscaSaldoCaixa',
+                success: function (response) {
+                    if (response.sucesso) {
+                        $("#valor").val(parseFloat(response.valor).toFixed(2));
+                    } else {
+                        alert(response.mensagem);
                     }
-                });
-            }
+                },
+                error: function () {
+                    alert("Erro ao buscar o valor do produto.");
+                }
+            });
+        }
 
-            function AbrirCaixa() {
-                var valorini = parseFloat($("#valor").val());
+        function AbrirCaixa() {
+            var valorini = parseFloat($("#valor").val());
 
-                var caixa = {
-                    TotalInicial: valorini
-                };
+            var caixa = {
+                TotalInicial: valorini
+            };
 
-                $.ajax({
-                    async: true,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(caixa),
-                    url: '/Caixa/AbrirCaixa',
-                    success: function () {
-                        alert("Caixa aberto com sucesso!");
-                        window.location.reload(true);
-                    },
-                    error: function () {
-                        console.error("Erro ao abrir caixa");
-                    }
-                });
-            }
+            $.ajax({
+                async: true,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(caixa),
+                url: '/Caixa/AbrirCaixa',
+                success: function () {
+                    alert("Caixa aberto com sucesso!");
+                    window.location.reload(true);
+                },
+                error: function () {
+                    console.error("Erro ao abrir caixa");
+                }
+            });
+        }
 
-            function FecharCaixa() {
-                var valorini = parseFloat($("#valor").val());
+        function FecharCaixa() {
+            var valorini = parseFloat($("#valor").val());
 
-                var caixa = {
-                    TotalFinal: valorini
-                };
-                $.ajax({
-                    async: true,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(caixa),
-                    url: '/Caixa/FecharCaixa',
-                    success: function () {
-                        alert("Caixa fechado com sucesso!");
-                        window.location.reload(true);
-                    },
-                    error: function () {
-                        console.error("Erro ao fechar caixa");
-                    }
-                });
-            }
+            var caixa = {
+                TotalFinal: valorini
+            };
+            $.ajax({
+                async: true,
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(caixa),
+                url: '/Caixa/FecharCaixa',
+                success: function () {
+                    alert("Caixa fechado com sucesso!");
+                    window.location.reload(true);
+                },
+                error: function () {
+                    console.error("Erro ao fechar caixa");
+                }
+            });
+        }
+    </script>
 
-        </script>
-    </body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
