@@ -22,25 +22,19 @@
     <thead class="thead-light">
         <tr>
             <th>
-                @Html.DisplayName("Pagamento");
+                @Html.DisplayName("Pagamento")
             </th>
             <th>
-                @Html.DisplayName("Valor");
+                @Html.DisplayName("Valor")
             </th>
             <th>
-                @Html.DisplayName("Descrição");
+                @Html.DisplayName("Descrição")
             </th>
             <th>
-                @Html.DisplayName("Mão de Obra");
+                @Html.DisplayName("Data")
             </th>
             <th>
-                @Html.DisplayName("Data");
-            </th>
-            <th>
-                @Html.DisplayName("Venda");
-            </th>
-            <th>
-                @Html.DisplayName("Opções");
+                @Html.DisplayName("Opções")
             </th>
             <th></th>
         </tr>
@@ -62,16 +56,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaixaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Venda1.Id)
-            </td>
             <td style="text-align: center;">
                 <div class="btn-group" role="group">
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                   
                     @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
                 </div>
             </td>

@@ -311,6 +311,22 @@
                 }
             });
             }
+         function toggleVenda() {
+                    const btnNovaVenda = document.getElementById('btnNovaVenda');
+                    const btnFecharVenda = document.getElementById('btnFecharVenda');
+
+                    // Alterna a visibilidade dos botões "Nova Venda" e "Fechar Venda"
+                    btnNovaVenda.style.display = 'none'; // Oculta o "Nova Venda"
+                    btnFecharVenda.style.display = 'block'; // Exibe o "Fechar Venda"
+                }
+
+                // Adiciona um evento ao botão "Adicionar"
+                document.getElementById('btnIncluirPagamento').addEventListener('click', function() {
+                    const btnFecharVenda = document.getElementById('btnFecharVenda');
+
+                    // Oculta o botão "Fechar Venda" ao clicar em "Adicionar"
+                    btnFecharVenda.style.display = 'none';
+                });
 
     </script>
 </head>
@@ -333,7 +349,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <button id="btnNovaVenda" class="btn btn-success btn-block" style="margin-top: 24px;">Nova Venda</button>
+                        <button id="btnNovaVenda" class="btn btn-success btn-block" style="margin-top: 24px;" onclick="toggleVenda()">Nova Venda</button>
                     </div>
                 </div>
             </div>
@@ -347,7 +363,7 @@
                 </div>
                 <div class="col-md-4 offset-md-4">
                     <div class="form-group">
-                        <button id="btnFecharVenda" class="btn btn-danger btn-block" style="margin-top: 24px;">Fechar Venda</button>
+                        <button id="btnFecharVenda" class="btn btn-danger btn-block" style="margin-top: 24px; display: none;" onclick="toggleVenda()">Fechar Venda</button>
                     </div>
                 </div>
             </div>
