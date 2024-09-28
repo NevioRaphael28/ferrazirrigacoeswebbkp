@@ -21,16 +21,16 @@
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="@Url.Content("~/Cliente")"><span class="fa-solid fa-user"> </span>Cliente</a> </li>
+            <li><a href="@Url.Content("~/Cliente")"><span class="fa-solid fa-user"></span>Cliente</a> </li>
             <li><a href="@Url.Content("~/Cidade")"><span class="fa-solid fa-city"></span>Cidade</a></li>
-            <li><a href="@Url.Content("~/Empresa")"><span class="fa-solid fa-handshake"> </span>Empresa</a></li>
+            <li><a href="@Url.Content("~/Empresa")"><span class="fa-solid fa-handshake"></span>Empresa</a></li>
 
             <h4>
                 <span>Produtos</span>
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="@Url.Content("~/Produto")"><span class="fa-solid fa-barcode"> </span>Produto</a></li>
+            <li><a href="@Url.Content("~/Produto")"><span class="fa-solid fa-barcode"></span>Produto</a></li>
             <li><a href="@Url.Content("~/CategoriasTipo")"><span class="fa-solid fa-layer-group"></span>Categorias</a></li>
             <li><a href="@Url.Content("~/Marca")"><span class="fa-solid fa-registered"></span>Marca</a></li>
 
@@ -39,13 +39,28 @@
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-cart-shopping"> </span>Nova Venda</a> </li>
-            <li><a href="@Url.Content("~/Venda")"><span class="fa-solid fa-rectangle-list"> </span>Lista Vendas</a> </li>
-            <li><a href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-dollar-sign"> </span>Lancamento</a> </li>
+            <li><a href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-cart-shopping"></span>Nova Venda</a> </li>
+            <li><a href="@Url.Content("~/Venda")"><span class="fa-solid fa-rectangle-list"></span>Lista Vendas</a> </li>
+            <li><a href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-circle-dollar-to-slot"></span>Lancamento</a> </li>
 
 
 
         </ul>
+
+               @{
+                    // Supondo que você tenha uma variável caixaId definida na sua View, caso contrário, você precisa garantir que ela é passada corretamente
+                    var caixaId = Session["CaixaId"] as int?; // Aqui estou assumindo que você armazena o ID do caixa na sessão.
+                    var caixaAberto = caixaId.HasValue && caixaId.Value > 0;
+                }
+
+                <div class="cash-links @(caixaAberto ? "cash-open" : "cash-closed")">
+                    <li>
+                        <a href="@Url.Content("~/Home")">
+                            <span class="fa-solid fa-money-check-dollar" style="color:@(caixaAberto ? "green" : "red");"></span>
+                            @(caixaAberto ? "Caixa Aberto" : "Caixa Fechado")
+                        </a>
+                    </li>
+                </div>
 
 
         <div class="user-account">

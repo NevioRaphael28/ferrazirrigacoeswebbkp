@@ -31,22 +31,27 @@ body {
         width: 260px;
     }
 
+        .sidebar:hover .sidebar-links {
+            overflow-y: scroll; /* Forçar o aparecimento da barra de rolagem para teste */
+        }
+
     .sidebar .sidebar-header {
         display: flex;
         align-items: center;
     }
 
         .sidebar .sidebar-header img {
-            width: 62px;
-            border-radius: 50%;
+            width: 82px;
+            border-radius: 30%;
+            transform: translateX(-20px); /* Ajuste o valor conforme necessário */
         }
 
         .sidebar .sidebar-header h2 {
             color: #fff;
-            font-size: 1.00rem;
-            font-weight: 500;
-            white-space: nowrap;
-            margin-left: 20px;
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 5px 0; /* Pequeno espaçamento entre os elementos */
+            text-align: center; /* Centraliza o texto */
         }
 
 .sidebar-links h4 {
@@ -86,44 +91,103 @@ body {
 .sidebar-links {
     list-style: none;
     margin-top: 20px;
-    height: 80%;
-    overflow-y: auto;
-    scrollbar-width: none;
     padding-left: 0;
+    flex-grow: 1;
+    overflow-y: hidden; /* Inicialmente oculto */
+    scrollbar-width: none; /* Esconder barra de rolagem por padrão */
 }
 
-    .sidebar-links::-webkit-scrollbar {
-        display: none;
-    }
+.sidebar:hover .sidebar-links {
+    overflow-y: auto; /* Mostrar barra de rolagem ao expandir */
+}
 
-    .sidebar-links li {
+.sidebar-links::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-links::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.sidebar-links::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-links li {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+    .sidebar-links li a {
         display: flex;
         align-items: center;
-        text-align: left; /* Alinha o texto à esquerda */
+        gap: 30px;
+        color: #fff;
+        font-weight: 500;
+        white-space: nowrap;
+        padding: 10px 15px !important;
+        text-decoration: none;
+        transition: 0.2s ease;
+        width: 90%;
+        text-align: left;
     }
 
-        .sidebar-links li a {
-            display: flex;
-            align-items: center;
-            gap: 9px; /* Aumentar o espaço entre ícones e texto */
-            color: #fff;
-            font-weight: 500;
-            white-space: nowrap;
-            padding: 20px 22px; 
-            text-decoration: none;
-            transition: 0.2s ease;
-            width: 80%; /* Ocupa toda a largura do item */
-            text-align: left; /* Alinha o texto à esquerda */
+        .sidebar-links li a:hover {
+            color: #161a2d;
+            background: #fff;
+            border-radius: 4px;
         }
 
-            .sidebar-links li a:hover {
-                color: #161a2d;
-                background: #fff;
-                border-radius: 4px;
-            }
+.cash-links {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+    .cash-links li {
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+        .cash-links li a {
+            display: flex;
+            gap: 40px;
+            color: #fff; /* Padrão para texto da cash link */
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 6px 10px;
+            text-decoration: none;
+            transition: background 0.2s ease; /* Adicionando transição para background */
+        }
+
+/* Efeito de hover baseado no estado do caixa */
+.cash-open:hover a {
+    background: rgba(0, 255, 0, 0.3); /* Leve fundo verde para hover quando caixa está aberto */
+}
+
+.cash-closed:hover a {
+    background: rgba(255, 0, 0, 0.3); /* Leve fundo vermelho para hover quando caixa está fechado */
+}
+
+.cash-open {
+    border: 2px solid green;
+    transition: border-color 0.5s ease;
+}
+
+.cash-closed {
+    border: 2px solid red;
+    transition: border-color 0.5s ease;
+}
+
+.cash-links li a:hover {
+    border-radius: 4px; /* Arredondar as bordas ao passar o mouse */
+}
+
 
 .user-account {
-    margin-top: auto;
     padding: 12px 10px;
     margin-left: -10px;
 }

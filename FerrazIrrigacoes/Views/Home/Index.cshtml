@@ -82,6 +82,17 @@
         <p>Seja Bem Vindo, @Session["UsuarioNome"]!</p>
     </div>
 
+    <p>
+            @if (caixaId.HasValue && caixaId.Value > 0)
+            {
+            <p style="color: forestgreen"> Caixa Aberto</p>
+            }
+            else
+            {
+                <p style="color: red">Caixa Fechado</p>
+            }
+
+
     <div class="container-caixa">
         <div class="form-login">
             <h2>Gerenciamento do Caixa</h2>
@@ -100,10 +111,17 @@
                             <label for="txtValorCaixa">Valor Inicial:</label>
                             <input type="number" id="valor" class="form-control" placeholder="Digite o valor inicial" />
                         </div>
-                        <div class="form-group">
-                            <button type="button" id="btnAbrir" class="btn">Abrir Caixa</button>
-                            <button type="button" id="btnFechar" class="btn">Fechar Caixa</button>
-                        </div>
+                         <div class="form-group">
+                                    @if (caixaId.HasValue && caixaId.Value > 0)
+                                    {
+                                        <button type="button" id="btnFechar" class="btn btn-secondary">Fechar caixa</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="btnAbrir" class="btn btn-primary">Abrir caixa</button>
+                                    }
+
+                         </div>
                     </form>
                 </section>
             </main>

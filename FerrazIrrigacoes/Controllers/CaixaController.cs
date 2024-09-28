@@ -17,8 +17,17 @@ namespace ferrazIrrigacoesWeb.Controllers
         // GET: Caixa
         public ActionResult Index()
         {
+            // Verificar se o caixa está aberto e obter o caixaId
+            int? caixaId = (int?)Session["CaixaId"];
+            ViewBag.CaixaId = caixaId;
+            ViewBag.CaixaAberto = VerificarCaixaAberto(); // Mantenha isso se precisar
+
             var caixa = db.Caixa.Include(c => c.Usuario1);
             return View(caixa.ToList());
+        }
+        public bool VerificarCaixaAberto()
+        {
+            return db.Caixa.Any(c => c.DataFechamento == null);
         }
 
         // GET: Caixa/Details/5
@@ -54,6 +63,9 @@ namespace ferrazIrrigacoesWeb.Controllers
             {
                 db.Caixa.Add(caixa);
                 db.SaveChanges();
+
+                Session["CaixaId"] = caixa.Id;
+
                 return RedirectToAction("Index");
             }
 
@@ -135,26 +147,35 @@ namespace ferrazIrrigacoesWeb.Controllers
             db.Caixa.Add(caixa);
             caixa.DataAbertura = DateTime.Now;
             db.SaveChanges();
-            return Json("Caixa Aberto", JsonRequestBehavior.AllowGet);
+
+            Session["CaixaId"] = caixa.Id;
+            return Json(new { sucesso = true, mensagem = "Caixa Aberto", caixaId = caixa.Id }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult FecharCaixa(Caixa caixa)
+        public JsonResult FecharCaixa()
         {
-            Caixa CaixaFechamento = db.Caixa.Find(Convert.ToInt32((Session["CaixaId"])));
+            int? caixaId = Session["CaixaId"] as int?;
+            if (caixaId.HasValue)
+            {
+                Caixa CaixaFechamento = db.Caixa.Find(caixaId.Value);
 
-            CaixaFechamento.Usuario = Convert.ToInt32(Session["UsuarioId"]);
-            CaixaFechamento.TotalFinal = Convert.ToDecimal(db.CalculaCaixa(Convert.ToInt32(Session["CaixaId"])).FirstOrDefault()) + CaixaFechamento.TotalInicial;
-            CaixaFechamento.DataFechamento = DateTime.Now;
+                if (CaixaFechamento != null)
+                {
+                    CaixaFechamento.Usuario = Convert.ToInt32(Session["UsuarioId"]);
+                    CaixaFechamento.TotalFinal = Convert.ToDecimal(db.CalculaCaixa(caixaId.Value).FirstOrDefault()) + CaixaFechamento.TotalInicial;
+                    CaixaFechamento.DataFechamento = DateTime.Now;
 
-            //caixa.id = Convert.ToInt32(Session["caixaid"]);
-            //caixa.usuario_id = Convert.ToInt32(Session["id"]);
-            //caixa.valorfim =Convert.ToDecimal(db.CalculaSaldoCaixa(Convert.ToInt32(Session["caixaid"])).FirstOrDefault());
-            //caixa.fechamento = DateTime.Now;
+                    db.Entry(CaixaFechamento).State = EntityState.Modified;
+                    db.SaveChanges();
 
-            db.Entry(CaixaFechamento).State = EntityState.Modified;
-            db.SaveChanges();
+                    // Remove o caixaId da sessão
+                    Session["CaixaId"] = null;
 
-            return Json("Caixa Fechado", JsonRequestBehavior.AllowGet);
-        } 
+                    return Json(new { sucesso = true, mensagem = "Caixa Fechado" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new { sucesso = false, mensagem = "Erro ao fechar caixa" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
