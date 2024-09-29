@@ -20,7 +20,7 @@ namespace ferrazIrrigacoesWeb.Controllers
             // Verificar se o caixa está aberto e obter o caixaId
             int? caixaId = (int?)Session["CaixaId"];
             ViewBag.CaixaId = caixaId;
-            ViewBag.CaixaAberto = VerificarCaixaAberto(); // Mantenha isso se precisar
+            ViewBag.CaixaAberto = VerificarCaixaAberto();
 
             var caixa = db.Caixa.Include(c => c.Usuario1);
             return View(caixa.ToList());
