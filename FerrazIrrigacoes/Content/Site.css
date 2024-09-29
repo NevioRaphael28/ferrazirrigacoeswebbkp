@@ -160,12 +160,15 @@ body {
             white-space: nowrap;
             padding: 6px 10px;
             text-decoration: none;
-            transition: background 0.2s ease; /* Adicionando transição para background */
+            transition: background 0.2s ease, border-radius 0.2s ease; /* Adicionando transição para border-radius */
+            border-radius: 8px; /* Valor ajustado para arredondar as bordas */
         }
+
 
 /* Efeito de hover baseado no estado do caixa */
 .cash-open:hover a {
-    background: rgba(0, 255, 0, 0.3); /* Leve fundo verde para hover quando caixa está aberto */
+    background: rgba(0, 0, 0, 0.1); /* Leve fundo ao passar o mouse */
+    border-radius: 6px; /* Garantir que o efeito hover esteja alinhado com a borda */
 }
 
 .cash-closed:hover a {
@@ -174,11 +177,13 @@ body {
 
 .cash-open {
     border: 2px solid green;
+    border-radius: 8px; /* Adicionando bordas arredondadas */
     transition: border-color 0.5s ease;
 }
 
 .cash-closed {
     border: 2px solid red;
+    border-radius: 8px; /* Adicionando bordas arredondadas */
     transition: border-color 0.5s ease;
 }
 
@@ -191,6 +196,7 @@ body {
     padding: 12px 10px;
     margin-left: -10px;
 }
+
 
 .user-profile {
     display: flex;
@@ -222,4 +228,26 @@ body {
 .sidebar:hover .user-account {
     background: #fff;
     border-radius: 4px;
+}
+
+.cash-open .cash-icon {
+    color: green; /* Verde quando o caixa está aberto */
+}
+
+.cash-closed .cash-icon {
+    color: red; /* Vermelho quando o caixa está fechado */
+}
+
+.cash-icon {
+    font-size: 24px; /* Ajuste o tamanho conforme necessário */
+    transform: translateX(-3px); /* Move o ícone 5px para a esquerda */
+    transition: color 0.3s ease; /* Transição suave ao trocar a cor */
+}
+
+.cash-open:hover .cash-icon {
+    color: #00FF00; /* Cor verde mais clara no hover quando o caixa está aberto */
+}
+
+.cash-closed:hover .cash-icon {
+    color: #FF0000; /* Cor vermelha mais clara no hover quando o caixa está fechado */
 }

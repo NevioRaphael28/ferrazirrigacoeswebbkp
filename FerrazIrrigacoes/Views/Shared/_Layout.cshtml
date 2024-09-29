@@ -31,7 +31,7 @@
             </h4>
 
             <li><a href="@Url.Content("~/Produto")"><span class="fa-solid fa-barcode"></span>Produto</a></li>
-            <li><a href="@Url.Content("~/CategoriasTipo")"><span class="fa-solid fa-layer-group"></span>Categorias</a></li>
+            <li><a href="@Url.Content("~/CategoriasTipo")"><span class="fa-solid fa-layer-group"></span>Categoria</a></li>
             <li><a href="@Url.Content("~/Marca")"><span class="fa-solid fa-registered"></span>Marca</a></li>
 
             <h4>
@@ -39,11 +39,9 @@
                 <div class="menu-separator"></div>
             </h4>
 
-            <li><a href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-cart-shopping"></span>Nova Venda</a> </li>
-            <li><a href="@Url.Content("~/Venda")"><span class="fa-solid fa-rectangle-list"></span>Lista Vendas</a> </li>
-            <li><a href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-circle-dollar-to-slot"></span>Lancamento</a> </li>
-
-
+            <li><a id="novaVenda" href="@Url.Content("~/Venda/Lancar")"><span class="fa-solid fa-cart-shopping"></span>Nova Venda</a> </li>
+            <li><a id="listaVendas" href="@Url.Content("~/Venda")"><span class="fa-solid fa-rectangle-list"></span>Lista Vendas</a> </li>
+            <li><a id="lancamentos" href="@Url.Content("~/Lancamento")"><span class="fa-solid fa-circle-dollar-to-slot"></span>Lancamento</a> </li>
 
         </ul>
 
@@ -56,7 +54,7 @@
                 <div class="cash-links @(caixaAberto ? "cash-open" : "cash-closed")">
                     <li>
                         <a href="@Url.Content("~/Home")">
-                            <span class="fa-solid fa-money-check-dollar" style="color:@(caixaAberto ? "green" : "red");"></span>
+                            <span class="fa-solid fa-money-check-dollar cash-icon"></span>
                             @(caixaAberto ? "Caixa Aberto" : "Caixa Fechado")
                         </a>
                     </li>
