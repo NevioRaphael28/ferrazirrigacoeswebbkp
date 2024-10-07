@@ -251,3 +251,36 @@ body {
 .cash-closed:hover .cash-icon {
     color: #FF0000; /* Cor vermelha mais clara no hover quando o caixa está fechado */
 }
+
+.logout-links {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+    .logout-links li {
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+        .logout-links li a {
+            display: flex;
+            gap: 40px;
+            color: #fff; /* Padrão para texto de logout */
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 6px 10px;
+            text-decoration: none;
+            transition: background 0.2s ease, border-radius 0.2s ease; /* Adicionando transição para border-radius */
+        }
+
+.logout-icon {
+    font-size: 24px; /* Ajuste o tamanho conforme necessário */
+    transform: translateX(3px); /* Move o ícone 3px para a esquerda */
+    transition: color 0.3s ease;
+    color: white; /* Ícone branco padrão */
+}
+
+
+
