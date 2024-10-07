@@ -1,5 +1,6 @@
-﻿/* Importing Google font - Poppins */
+﻿/* Mova a regra @import para o topo do arquivo e em uma linha separada */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
 
 * {
     margin: 0;
