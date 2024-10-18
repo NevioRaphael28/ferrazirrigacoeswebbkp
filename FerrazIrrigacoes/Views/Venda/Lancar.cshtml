@@ -4,10 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lançamento de Vendas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="path/to/Site.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         body {
             background-color: #637382;
+            font-size: 1.4rem !important;
+            font-size: 100% !important;
             padding: 20px;
         }
 
@@ -21,7 +24,6 @@
         }
 
         legend {
-            font-size: 1.2rem;
             padding: 5px 10px;
             border-radius: 5px;
             background-color: #637382;
@@ -48,6 +50,11 @@
 
         .btn-danger {
             background-color: #dc3545;
+        }
+
+        .modal-title{
+            font-size: 2rem;
+            color: white;
         }
     </style>
     <script type="text/javascript">
@@ -356,7 +363,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <button id="btnNovaVenda" class="btn btn-success btn-block" style="margin-top: 24px;" onclick="toggleVenda()">Nova Venda</button>
+                        <button id="btnNovaVenda" class="btn btn-success btn-block" style="margin-top: 24px; font-size: 1.5rem; font-weight: 600;" onclick="toggleVenda()">Nova Venda</button>
                     </div>
                 </div>
             </div>
@@ -370,7 +377,7 @@
                 </div>
                 <div class="col-md-4 offset-md-4">
                     <div class="form-group">
-                        <button id="btnFecharVenda" class="btn btn-danger btn-block" style="margin-top: 24px; display: none;" onclick="toggleVenda()">Fechar Venda</button>
+                        <button id="btnFecharVenda" class="btn btn-danger btn-block" style="margin-top: 24px; display: none; font-size: 1.5rem; font-weight: 600;" onclick="toggleVenda()">Fechar Venda</button>
                     </div>
                 </div>
             </div>
@@ -402,7 +409,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 text-right">
-                    <button id="btnAddToList" class="btn btn-success">Adicionar Produto</button>
+                    <button id="btnAddToList" class="btn btn-success" style="font-weight: 600; font-size: 1.3rem;">Adicionar</button>
                 </div>
             </div>
         </div>
@@ -431,7 +438,7 @@
     </fieldset>
 
     <!-- Modal Pagamento -->
-    <div id="divPagamento" class="modal fade" tabindex="-1" role="dialog">
+    <div id="divPagamento" class="modal fade in" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -465,8 +472,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="btnIncluirPagamento">Adicionar</button>
-                    <button class="btn btn-danger" id="btnClose" data-dismiss="modal" value="close">Fechar</button>
+                    <button class="btn btn-success" id="btnIncluirPagamento" style="font-weight: 600; font-size: 1.5rem;">Adicionar</button>
+                    <!-- <button class="btn btn-danger" id="btnClose" data-dismiss="modal" style="font-weight: 600; font-size: 1.5rem;">Fechar</button> -->
                 </div>
             </div>
         </div>
@@ -475,7 +482,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/jquery-3.7.0.js"></script>
     <script type="text/javascript">
-            // Scripts will be added here
     </script>
 
 </body>

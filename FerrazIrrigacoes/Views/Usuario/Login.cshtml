@@ -6,11 +6,8 @@
 }
 
 <script src="https://kit.fontawesome.com/e2b4ec850b.js" crossorigin="anonymous"></script>
-<link href="~/Content/cssti.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/jquery-3.7.0.js"></script>
-
+<link href="~/Content/cssti.css" rel="stylesheet" />
 
 @using (Html.BeginForm("Login", "Usuario", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -22,10 +19,7 @@
             <div class="logo-container">
                 <img src="~/resources/logo.png" alt="Logo" class="logo">
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">Painel Administrador</div>
-                </div>
+            <div class="panel panel-default">            
                 <div style="padding-top:30px" class="panel-body">
                     <div style="display:none" id="result" class="alert alert-danger col-sm-12"></div>
 
