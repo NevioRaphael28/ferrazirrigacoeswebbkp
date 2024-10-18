@@ -1,7 +1,7 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&display=swap');
+﻿@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 body {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     font-weight: 400;
     font-style: normal;
     color: #313131;
@@ -12,6 +12,24 @@ body {
     background-position: center; /* Centraliza a imagem no fundo */
     background-repeat: no-repeat; /* Evita a repetição da imagem */
 }
+
+.panel {
+    background: #31708f96;
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
+    padding: 20px; /* Espaçamento interno */
+    margin-bottom: 20px; /* Espaçamento entre painéis */
+    border: none; /* Remover bordas padrão */
+}
+
+.panel-body {
+    padding: 20px; /* Espaçamento dentro do corpo do painel */
+    font-size: 16px; /* Ajuste do tamanho da fonte */
+    color: #ecf0f1; /* Cor clara para contraste */
+}
+
+
+
 
 .logo-container {
     text-align: center; /* Centraliza a logo */
@@ -58,18 +76,16 @@ html, body {
     }
 
 .btn {
-    display: inline-block;
-    padding: 6px 12px;
     border: 2px solid #ddd;
     color: #ddd;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: uppercase;
     margin: 15px 5px 0;
     transition: all 0.2s;
     min-width: 100px;
     text-align: center;
-    font-size: 14px;
+    font-size: 1.5rem;
     border-radius: 5px;
 }
 
@@ -81,8 +97,8 @@ html, body {
 
 .panel-title {
     text-align: center;
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 23px;
+    font-weight: 500;
     color: #333;
 }
 

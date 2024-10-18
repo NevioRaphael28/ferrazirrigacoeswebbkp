@@ -35,7 +35,8 @@
 
         .form-login h2 {
             margin-bottom: 20px;
-            font-size: 1.25rem;
+            font-size: 2.1rem;
+            font-weight: bold;
             color: #637382;
         }
         .form-group {
@@ -82,20 +83,20 @@
         <p>Seja Bem Vindo, @Session["UsuarioNome"]!</p>
     </div>
 
-    <p>
-            @if (caixaId.HasValue && caixaId.Value > 0)
-            {
-            <p style="color: forestgreen"> Caixa Aberto</p>
-            }
-            else
-            {
-                <p style="color: red">Caixa Fechado</p>
-            }
-
+   
 
     <div class="container-caixa">
         <div class="form-login">
             <h2>Gerenciamento do Caixa</h2>
+             <p style="display: inline-block; ">Status:</p>
+                @if (caixaId.HasValue && caixaId.Value > 0)
+                {
+                    <p style="display: inline-block; color: forestgreen; margin-left: 10px;">Caixa Aberto</p>
+                }
+                else
+                {
+                    <p style="display: inline-block; color: red; margin-left: 10px;">Caixa Fechado</p>
+                }
             <main>
                 <section aria-labelledby="aspnetTitle">
                     <form>
@@ -114,11 +115,11 @@
                          <div class="form-group">
                                     @if (caixaId.HasValue && caixaId.Value > 0)
                                     {
-                                        <button type="button" id="btnFechar" class="btn btn-secondary">Fechar caixa</button>
+                                        <button type="button" id="btnFechar" class="btn btn-secondary" style="font-weight: 600; font-size: 1.5rem;">Fechar caixa</button>
                                     }
                                     else
                                     {
-                                        <button type="button" id="btnAbrir" class="btn btn-primary">Abrir caixa</button>
+                                        <button type="button" id="btnAbrir" class="btn btn-primary" style="font-weight: 600; font-size: 1.5rem;">Abrir caixa</button>
                                     }
 
                          </div>
