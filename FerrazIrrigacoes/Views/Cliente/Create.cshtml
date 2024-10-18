@@ -4,8 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
+<h2>NOVO</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -15,6 +14,7 @@
         <h4>Cliente</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control cpf" } })
                 @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control telefone" } })
                 @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control cep" } })
                 @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -97,16 +97,24 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="btn-group" role="group" style="width: 100%;">
+                    <input type="submit" value="CRIAR" class="btn btn-default" style="width: 20%;" />
+                    @Html.ActionLink("RETORNAR", "Index", null, new { @class = "btn btn-info btn-sm", style = "width: 30%;" })
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.cpf').mask('000.000.000-00');
+            $('.telefone').mask('(00) 0000-0000');
+            $('.cep').mask('00000-000');
+        });
+    </script>
 }

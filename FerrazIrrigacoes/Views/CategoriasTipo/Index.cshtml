@@ -4,11 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Categorias</h2>
+<h2 class="text-center">Categorias
+    <i class="fas fa-folder-plus text-success" style="font-size: 3rem; cursor: pointer; color: #31c533;" 
+       onclick="window.location='@Url.Action("Create", "CategoriasTipo")'"></i>
+</h2>
 
-<p>
-    @Html.ActionLink("Novo", "Create", null, new {@class = "btn btn-success"})
-</p>
 <table class="table" style="background-color: white;">
     <tr>
         <th>

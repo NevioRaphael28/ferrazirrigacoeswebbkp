@@ -4,8 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
+<h2>NOVO</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -15,6 +14,7 @@
         <h4>Produto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Descricao, "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
@@ -56,15 +56,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoriasTipo, "CategoriasTipo", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CategoriasTipo, "Categorias Tipo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CategoriasTipo", null, htmlAttributes: new { @class = "form-control" })
+                <p class="text-muted" style="color: white;">Selecione a categoria apropriada para o produto.</p>
                 @Html.ValidationMessageFor(model => model.CategoriasTipo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UnidadeMedidaTipos, "UnidadeMedidaTipos", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UnidadeMedidaTipos, "Unidade de Medida", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("UnidadeMedidaTipos", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UnidadeMedidaTipos, "", new { @class = "text-danger" })
@@ -73,15 +74,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="btn-group" role="group" style="width: 100%;">
+                    <input type="submit" value="CRIAR" class="btn btn-default" style="width: 20%;" />
+                    @Html.ActionLink("RETORNAR", "Index", null, new { @class = "btn btn-info btn-sm", style = "width: 30%;" })
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
