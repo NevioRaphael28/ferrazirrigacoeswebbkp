@@ -4,11 +4,11 @@
     ViewBag.Title = "Lista de Empresas";
 }
 
-<h2>Lista de Empresas</h2>
+<h2 class="text-center">Lista de Empresas
+    <i class="fas fa-building-circle-arrow-right text-success" style="font-size: 3rem; cursor: pointer; color: #31c533;" 
+       onclick="window.location='@Url.Action("Create", "Empresa")'"></i>
+</h2>
 
-<p>
-    @Html.ActionLink("Nova Empresa", "Create", null, new { @class = "btn btn-success" })
-</p>
 <table class="table table-bordered table-hover table-striped bg-white">
     <thead class="thead-light">
         <tr>

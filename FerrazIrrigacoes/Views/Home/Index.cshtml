@@ -76,6 +76,21 @@
             font-weight: bold;
             color: #fff;
         }
+        .form-control1 {
+            display: block;
+            width: 100%;
+            height: calc(1.5em + 0.75rem + 2px); /* Altura ajustável */
+            padding: 0.375rem 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -102,15 +117,15 @@
                     <form>
                         <div class="form-group">
                             <label for="DtAberturaCaixa">Data Abertura:</label>
-                            <input type="date" id="DtAberturaCaixa" class="form-control" />
+                            <input type="date" id="DtAberturaCaixa" class="form-control1" />
                         </div>
                         <div class="form-group">
                             <label for="DtFechamentoCaixa">Data Fechamento:</label>
-                            <input type="date" id="DtFechamentoCaixa" class="form-control" />
+                            <input type="date" id="DtFechamentoCaixa" class="form-control1" />
                         </div>
                         <div class="form-group">
                             <label for="txtValorCaixa">Valor Inicial:</label>
-                            <input type="number" id="valor" class="form-control" placeholder="Digite o valor inicial" />
+                            <input type="number" id="valor" class="form-control1" placeholder="Digite o valor inicial" />
                         </div>
                          <div class="form-group">
                                     @if (caixaId.HasValue && caixaId.Value > 0)

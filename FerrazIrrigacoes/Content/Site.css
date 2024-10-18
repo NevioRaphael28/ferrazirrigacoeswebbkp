@@ -20,6 +20,7 @@ html body {
 .form-control {
     font-size: 1.4rem !important;
     font-size: 100% !important;
+    width: 50% !important;
 }
 
 /* Estilos gerais para botões */

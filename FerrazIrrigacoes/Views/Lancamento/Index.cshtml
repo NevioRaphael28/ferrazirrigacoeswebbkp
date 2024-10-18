@@ -14,7 +14,6 @@
     </script>
 }
 
-
 <p>
     @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-success btn-sm" })
 </p>
@@ -38,68 +37,49 @@
             </th>
             <th></th>
         </tr>
-
     </thead>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data)
-            </td>
-            <td style="text-align: center;">
-                <div class="btn-group" role="group">
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                   
-                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
-                </div>
-            </td>
-        </tr>
-    }
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(item.Movimento == "C" ? "Crédito" : item.Movimento == "D" ? "Dinheiro" : item.Movimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td style="text-align: center;">
+                    <div class="btn-group" role="group">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
-
 <div style="text-align: center;">
-    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-    of @Model.PageCount
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
     @if (Model.HasPreviousPage)
     {
-        <td style="text-align: center;">
-            <div class="btn-group" role="group">
-                @Html.ActionLink("Anterior", "Index", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-primary btn-sm" })
-            </div>
-        </td>
-        @*@Html.ActionLink("<<", "Index", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-            @Html.Raw(" ");
-            @Html.ActionLink("< Anterior", "Index", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-        *@}
+        @Html.ActionLink("Anterior", "Index", new { pagina = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-primary btn-sm" })
+    }
     else
     {
-        @Html.Raw(" ");
         @:< Anterior
     }
 
     @if (Model.HasNextPage)
     {
-        <td style="text-align: center;">
-            <div class="btn-group" role="group">
-                @Html.ActionLink("Próxima", "Index", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-primary btn-sm" })
-                @Html.Raw(" ")
-                @Html.ActionLink("Voltar ao inicio", "Index", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-info btn-sm" })
-            </div>
-        </td>
-        @*@Html.ActionLink("Próxima >", "Index", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-            @Html.Raw(" ");
-            @Html.ActionLink(">>", "Index", new { pagina = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
-        *@}
-    </div>
+        @Html.ActionLink("Próxima", "Index", new { pagina = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-primary btn-sm" })
+        @Html.ActionLink("Voltar ao inicio", "Index", new { pagina = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }, new { @class = "btn btn-info btn-sm" })
+    }
+</div>
